@@ -1,0 +1,1781 @@
+/* ============================================================
+   ZAIWEBS — Home en modo oscuro (dirección A)
+   ------------------------------------------------------------
+   Nació para index.html, pero hoy lo cargan TODAS las páginas del
+   sitio (landings, portfolio, legales), después de los otros CSS.
+   Cualquier cambio acá se ve en las ocho: probar más de una.
+
+   La estrategia es redefinir los design tokens en <body>, no
+   reescribir cada componente. Como todo el resto del CSS consume
+   var(--c-...), la página entera cambia de mundo con este bloque.
+   Lo que viene después son solo las piezas nuevas del hero y los
+   ajustes de contraste que el fondo oscuro obliga.
+
+   Si algún día el sitio entero va a oscuro, estos tokens se mudan
+   a variables.css y este archivo desaparece casi por completo.
+   ============================================================ */
+
+body.tema-oscuro {
+  /* Fondos */
+  --c-bg:          #071A2C;   /* base */
+  --c-bg-alt:      #0C2438;   /* alternancia de secciones. Hubo un intento de
+                                 bajarlo a #0A2032 para suavizar el corte, pero
+                                 nunca llegó a verse: las bandas se pintaban con
+                                 un gemelo en RGB que quedó sin actualizar. Se
+                                 vuelve a este, que es el que da 4.68 puntos de
+                                 salto y hace que el cambio se note. */
+  --c-bg-dark:     #04121F;   /* el más profundo: CTA y footer */
+  --c-superficie:  #102B41;   /* tarjetas sobre el fondo base */
+
+  /* Texto — verificado sobre #071A2C:
+     #E7EFF6 = 14.1:1 · #9FB4C6 = 7.4:1 · #35D6EE = 9.5:1 */
+  --c-text:        #E7EFF6;
+  --c-text-muted:  #9FB4C6;
+  --c-text-invert: #E7EFF6;
+  --c-primary:     #E7EFF6;   /* invertido: lo que era azul oscuro ahora es claro */
+  --c-border:      #1E3A52;
+
+  /* Acento: sobre oscuro el cian brilla, no hace falta la versión ink */
+  --c-accent:      #00B8D4;
+  --c-accent-ink:  #35D6EE;
+  --c-accent-hover:#35D6EE;
+  --c-accent-soft: #0E3245;
+
+
+  background: var(--c-bg);
+  color: var(--c-text);
+}
+
+/* ============ Ajustes que el fondo oscuro obliga ============ */
+
+body.tema-oscuro .site-header {
+  background: rgba(7, 26, 44, 0.86);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid transparent;
+}
+
+body.tema-oscuro .site-header.is-scrolled {
+  border-bottom-color: var(--c-border);
+  box-shadow: none;
+}
+
+body.tema-oscuro .menu-toggle__icon span { background: var(--c-text); }
+body.tema-oscuro .mobile-menu { background: var(--c-bg); }
+
+/* El botón primario mantiene el cian de fondo con texto oscuro: 6.5:1 */
+body.tema-oscuro .btn-primary { background: var(--c-accent); color: #05202F; }
+
+/* "Saltar al contenido" usaba --c-primary como color de texto, y acá arriba
+   --c-primary pasó a ser claro: quedaba texto claro sobre cian, 2.1:1. Solo
+   aparece al navegar con teclado, que es justo quien más lo necesita. */
+body.tema-oscuro .skip-link { color: #05202F; }
+
+body.tema-oscuro .btn-secondary {
+  border-color: #2E4A63;
+  color: var(--c-text);
+}
+
+/* Solo con mouse (ver components.css). La sombra del hover se apaga: era un
+   azul marino al 8 % que sobre este fondo no se veía y solo sumaba trabajo. */
+@media (hover: hover) and (pointer: fine) {
+  body.tema-oscuro .btn-primary:hover {
+    background: var(--c-accent-ink);
+    color: #05202F;
+    box-shadow: none;
+  }
+
+  body.tema-oscuro .btn-secondary:hover {
+    background: transparent;
+    border-color: var(--c-text-muted);
+    color: #FFFFFF;
+  }
+}
+
+/* Tarjetas: se levantan del fondo con superficie propia, no con sombra */
+body.tema-oscuro .card,
+body.tema-oscuro .portfolio-card,
+body.tema-oscuro .testimonio {
+  background: var(--c-superficie);
+  border-color: var(--c-border);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.tema-oscuro .portfolio-card:hover,
+  body.tema-oscuro .card:hover {
+    border-color: #2F5570;
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.42);
+  }
+}
+
+/* Lo que el navegador dibuja solo también lleva la marca: la selección de
+   texto y el cursor de los campos. Con los valores por defecto, seleccionar
+   un párrafo pintaba un azul de sistema que no existe en el sitio. */
+body.tema-oscuro ::selection {
+  background: rgba(0, 184, 212, 0.38);
+  color: #FFFFFF;
+}
+
+body.tema-oscuro input,
+body.tema-oscuro textarea { caret-color: var(--c-accent); }
+
+body.tema-oscuro .portfolio-card__tag {
+  background: #0B2336;
+  color: var(--c-text-muted);
+}
+
+body.tema-oscuro .badge {
+  background: var(--c-accent-soft);
+  color: var(--c-accent-ink);
+}
+
+body.tema-oscuro .filter-chip { border-color: var(--c-border); color: var(--c-text-muted); }
+body.tema-oscuro .filter-chip:hover { color: var(--c-text); border-color: var(--c-text-muted); }
+body.tema-oscuro .filter-chip[aria-pressed="true"] {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: #05202F;
+}
+
+body.tema-oscuro .why-item__icon { background: var(--c-accent-soft); }
+body.tema-oscuro .why-item__icon svg { stroke: var(--c-accent-ink); }
+body.tema-oscuro .card__icon,
+body.tema-oscuro .card__icon svg { color: var(--c-accent-ink); stroke: var(--c-accent-ink); }
+body.tema-oscuro .process-step__number { color: var(--c-accent-ink); }
+
+/* Color plano y filete, sin degradado. Se probó desvaneciendo los bordes y
+   quedaba más suave, pero se perdía justamente lo que se buscaba: que el
+   cambio de sección se note. El degradado disolvía la línea y también el
+   aviso de que empezó otra cosa. */
+body.tema-oscuro .section-alt {
+  background: var(--c-bg-alt);
+  border-block: 1px solid var(--c-border);
+}
+
+body.tema-oscuro .cta-final { background: var(--c-bg-dark); }
+
+
+/* La CTA final y el pie comparten el mismo fondo, así que sin filete se leen
+   como un solo bloque larguísimo y la CTA pierde el cierre. Es el único borde
+   entre secciones que no viene de .section-alt. */
+body.tema-oscuro .site-footer {
+  background: var(--c-bg-dark);
+  border-top: 1px solid var(--c-border);
+}
+
+/* ============ Hero ============ */
+
+body.tema-oscuro .hero {
+  position: relative;
+  overflow: hidden;
+  /* Arriba menos que abajo, a propósito. El header es sticky y ocupa su
+     propio lugar en el flujo, así que este relleno no está despejando nada:
+     es aire decorativo. Eran 120px y dejaban las solapas muy hundidas; con
+     las solapas afuera (27/09) el titular pasó a ser lo primero y necesita
+     un poco más de aire que ellas, no menos.
+
+     Los dos valores no son iguales porque un bloque centrado en su caja se
+     percibe caído: el ojo lo lee más arriba de lo que está. Con el de abajo
+     un poco mayor, el conjunto queda ópticamente centrado. */
+  padding-block: clamp(3rem, 6vw, 5.5rem) clamp(3.5rem, 7vw, 6rem);
+  max-width: none;          /* el hero rompe el container para que el fondo sea a sangre */
+  padding-inline: 0;
+}
+
+.hero__fondo {
+  position: absolute;
+  inset: -40%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side, rgba(0, 184, 212, 0.26), transparent 72%) 20% 28% / 56% 56% no-repeat,
+    radial-gradient(closest-side, rgba(27, 69, 112, 0.55), transparent 72%) 78% 66% / 62% 62% no-repeat;
+  filter: blur(14px);
+  animation: derivar 26s ease-in-out infinite alternate;
+}
+
+@keyframes derivar {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to   { transform: translate3d(4%, 3%, 0) scale(1.09); }
+}
+
+body.tema-oscuro .hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--sp-6);
+}
+
+/* Titular grande, entra línea por línea */
+body.tema-oscuro .hero__title {
+  font-size: clamp(2.5rem, 6.6vw, 4.6rem);
+  line-height: 0.99;
+  letter-spacing: -0.035em;
+  color: #FFFFFF;
+  max-width: 16ch;
+  margin-bottom: var(--sp-6);
+}
+
+/* overflow:hidden es lo que permite que el texto entre desde abajo, pero
+   recorta las colas de g, j, p, q, y. El padding agranda la caja y el
+   margen negativo lo descuenta, así las líneas no se separan. */
+.linea {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+
+.linea > span {
+  display: block;
+  transform: translateY(120%);
+  opacity: 0;
+  animation: subir 820ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.linea:nth-child(2) > span { animation-delay: 95ms; }
+.linea:nth-child(3) > span { animation-delay: 190ms; }
+
+@keyframes subir { to { transform: translateY(0); opacity: 1; } }
+
+.acento { color: var(--c-accent-ink); font-style: normal; }
+
+body.tema-oscuro .hero__lede {
+  color: var(--c-text-muted);
+  font-size: 1.1rem;
+  max-width: 48ch;
+}
+
+
+/* ============ Reveal al scrollear ============
+   Eran 640 ms y 38 px, más una demora de hasta 400 ms entre elementos: al
+   scrollear rápido, una sección entera se veía vacía durante un segundo. Con
+   43 elementos animados en la home, la espera se sumaba en cada pantalla.
+   Ahora 420 ms y 16 px: el movimiento se sigue leyendo, pero el contenido
+   llega cuando el ojo llega. La demora entre elementos la fija main.js. */
+
+body.tema-oscuro .reveal-init {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+body.tema-oscuro .reveal-init.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 420ms cubic-bezier(0.23, 1, 0.32, 1),
+              transform 420ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ============ Tarjetas de proyecto con más vida ============ */
+
+body.tema-oscuro .portfolio-card {
+  transition: transform 280ms cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 280ms ease,
+              border-color 280ms ease;
+}
+
+/* Sin el zoom de la captura al pasar el mouse: con el nombre ahora debajo de
+   la imagen, la captura agrandada se montaba sobre el título. */
+body.tema-oscuro .portfolio-card__img { background: #0A2540; }
+
+body.tema-oscuro .portfolio-card__link { color: var(--c-accent-ink); }
+
+body.tema-oscuro .portfolio-card__link svg {
+  transition: transform 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.tema-oscuro .portfolio-card:hover { transform: translateY(-6px); }
+
+  body.tema-oscuro .portfolio-card:hover .portfolio-card__link svg {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* ============ Testimonios sobre oscuro ============ */
+
+body.tema-oscuro .testimonio__cita { color: var(--c-text); }
+body.tema-oscuro .testimonio__cliente { color: #FFFFFF; }
+body.tema-oscuro .testimonio__rubro { color: var(--c-text-muted); }
+body.tema-oscuro .testimonio__pie { border-top-color: var(--c-border); }
+
+/* ============ WhatsApp siempre a la vista ============ */
+
+body.tema-oscuro .whatsapp-float {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* En celular queda solo el círculo con el ícono. Antes se expandía a una
+   píldora con la palabra "Escribime": 153px de ancho flotando sobre una
+   pantalla de 390, que es el 39% del ancho tapando contenido de forma
+   permanente. El ícono de WhatsApp ya se reconoce solo; la palabra costaba
+   más de lo que aportaba. El aria-label del enlace sigue diciendo qué hace,
+   así que para un lector de pantalla no cambia nada. */
+
+/* ============ Respeto por quien pide menos movimiento ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__fondo { animation: none; }
+  .linea > span { animation: none; transform: none; opacity: 1; }
+  body.tema-oscuro .reveal-init,
+  body.tema-oscuro .reveal-init.is-visible { opacity: 1; transform: none; transition: none; }
+  body.tema-oscuro .portfolio-card:hover { transform: none; }
+}
+
+/* ============================================================
+   LANDING — una sola página
+   ============================================================ */
+
+/* Las anclas tienen que frenar por debajo del header pegajoso */
+.seccion-ancla { scroll-margin-top: calc(var(--header-h) + var(--sp-4)); }
+
+@media (max-width: 899px) {
+  .seccion-ancla { scroll-margin-top: calc(var(--header-h-mobile) + var(--sp-4)); }
+}
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Enlace de la nav correspondiente a la sección visible */
+body.tema-oscuro .site-nav__link.is-active { color: #FFFFFF; }
+
+.titulo-menor {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+/* ============ Servicios: columna fija + columna que scrollea ============
+   La izquierda queda pegada mientras la derecha recorre los servicios.
+   Es position: sticky puro, sin JavaScript. Debajo de 900px las dos
+   columnas se apilan y la izquierda deja de pegarse. */
+
+.servicios-doble {
+  display: grid;
+  gap: var(--sp-12);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .servicios-doble {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--sp-16);
+    align-items: start;
+  }
+
+  .servicios-fijo {
+    position: sticky;
+    top: calc(var(--header-h) + var(--sp-12));
+  }
+}
+
+.servicios-fijo h2 { margin-bottom: var(--sp-4); }
+.servicios-fijo .lede { margin-bottom: var(--sp-6); }
+
+.servicios-fijo__nota {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  margin-bottom: var(--sp-8);
+  max-width: 34ch;
+}
+
+.servicios-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.servicio {
+  background: var(--c-superficie, var(--c-bg-alt));
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+  transition: border-color 260ms ease, transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .servicio:hover {
+    border-color: #2F5570;
+    transform: translateY(-3px);
+  }
+}
+
+.servicio__icono {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background: var(--c-accent-soft);
+  display: grid;
+  place-content: center;
+  margin-bottom: var(--sp-5, 1.25rem);
+}
+
+.servicio__icono svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--c-accent-ink);
+  fill: none;
+  stroke-width: 2;
+}
+
+.servicio__titulo {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  margin-bottom: var(--sp-3);
+  color: var(--c-text);
+}
+
+.servicio__intro {
+  color: var(--c-text-muted);
+  margin-bottom: var(--sp-6);
+}
+
+.servicio .check-list { margin-bottom: var(--sp-6); }
+
+.servicio__meta {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  margin-bottom: var(--sp-6);
+}
+
+.servicio__meta strong { color: var(--c-text); }
+
+@media (prefers-reduced-motion: reduce) {
+  .servicio:hover { transform: none; }
+}
+
+/* ============ Tarjeta final de la pista: lleva al portfolio ============ */
+
+.tarjeta-mas {
+  flex: 0 0 clamp(240px, 24vw, 320px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-4);
+  padding: var(--sp-8);
+  border: 1px dashed var(--c-border);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  transition: border-color 260ms ease, background 260ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tarjeta-mas:hover {
+    border-color: var(--c-accent);
+    background: var(--c-accent-soft);
+  }
+}
+
+.tarjeta-mas h3 {
+  font-size: var(--fs-h3);
+  color: var(--c-text);
+  margin: 0;
+}
+
+.tarjeta-mas p { color: var(--c-text-muted); font-size: var(--fs-small); margin: 0; }
+
+/* Los tildes venían en verde de éxito. Sobre el fondo oscuro el cian
+   de marca es más coherente y contrasta mejor. */
+body.tema-oscuro .check-list svg {
+  color: var(--c-accent-ink);
+  stroke: var(--c-accent-ink);
+}
+
+/* Dupla de botones bajo una grilla: uno convierte, el otro deja explorar. */
+.acciones-par {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-12);
+}
+
+@media (max-width: 520px) {
+  .acciones-par { flex-direction: column; align-items: stretch; }
+  .acciones-par .btn { width: 100%; }
+}
+
+/* ============================================================
+   Hero: una sola promesa
+   ------------------------------------------------------------
+   Hasta el 27/09 el hero tenía cuatro solapas (Web + IA, Diseño web, SEO,
+   Tiendas). Se sacaron: sumaban cuatro decisiones antes de que llegara la
+   promesa, repetían lo que ya dice Servicios, y como cada panel medía
+   distinto la página de abajo saltaba al cambiar. Queda el panel que la
+   mayoría veía igual, el de Web + IA. Las otras tres frases están en el
+   respaldo del 27/09 por si vuelven a servir en otra parte.
+   ============================================================ */
+
+/* A todo el ancho, sin imagen: el titular ocupa el escenario */
+body.tema-oscuro .hero__inner {
+  display: block;
+  max-width: 1000px;
+}
+
+.hero__eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--c-accent-ink);
+  margin-bottom: var(--sp-4);
+}
+
+body.tema-oscuro .hero__title {
+  max-width: 18ch;
+  font-size: clamp(2.5rem, 7.2vw, 5rem);
+}
+
+/* Sin imagen al costado, la bajada puede respirar más */
+body.tema-oscuro .hero__lede { max-width: 54ch; }
+
+/* ============================================================
+   Hero centrado
+   Para volver al alineado a la izquierda, borrá este bloque entero.
+   ============================================================ */
+
+body.tema-oscuro .hero__inner { text-align: center; }
+
+/* El <p> del hero hereda max-width 65ch: sin margen automático queda
+   pegado a la izquierda aunque su texto esté centrado. */
+.hero__eyebrow { margin-inline: auto; }
+
+body.tema-oscuro .hero__title {
+  margin-inline: auto;
+  max-width: 20ch;
+}
+
+/* Centrado, el texto corrido se lee peor: la bajada va más angosta */
+body.tema-oscuro .hero__lede {
+  margin-inline: auto;
+  max-width: 46ch;
+}
+
+body.tema-oscuro .hero__actions { justify-content: center; }
+
+@media (max-width: 620px) {
+  /* En pantallas angostas el centrado deja renglones muy dispares:
+     conviene volver a la izquierda, que se lee mejor. */
+  body.tema-oscuro .hero__inner { text-align: left; }
+  .hero__eyebrow,
+  body.tema-oscuro .hero__title,
+  body.tema-oscuro .hero__lede { margin-inline: 0; }
+  body.tema-oscuro .hero__actions { justify-content: flex-start; }
+}
+
+/* ============================================================
+   Cinta de clientes
+   Sin encabezado: los logos son el mensaje.
+   ============================================================ */
+
+/* La tira NO usa el tono claro de .section-alt aunque lleve esa clase.
+   Motivo: ese tono es el de las secciones, y esto no es una sección — no
+   tiene título ni contenido propio, es una tira de prueba social. Vestida
+   de sección, el ojo la lee como una sección vacía.
+
+   Va en el tono más profundo, el mismo de la CTA final. Tres consecuencias:
+   los logos blancos resaltan más, el salto contra el hero y contra Servicios
+   es de 3.67 puntos de L* de cada lado (se lee), y la tira gana identidad
+   propia en vez de imitar a las bandas de arriba y abajo.
+
+   Sin borde arriba y con borde abajo: así la tira sale del hero sin costura
+   —parece que el hero se hunde— pero cierra contra Servicios con un límite
+   claro. Con borde arriba se veía como un cajón pegado; sin el de abajo,
+   Servicios arrancaba sin aviso.
+
+   El relleno es la mitad del de una sección. Antes eran 128px de aire para
+   55px de logo: el 70% de la banda era vacío. */
+.clientes {
+  position: relative;      /* para el botón de pausa */
+  padding-block: clamp(1.6rem, 2.4vw, 2.2rem);
+  background: var(--c-bg-dark);
+  border-top: 0;
+  border-bottom: 1px solid var(--c-border);
+}
+
+/* Si lo que sigue a la tira es una banda alternada (en la home, Proyectos
+   desde el 27/09), su filete de arriba se sumaba al de abajo de la tira y
+   quedaba una raya doble. */
+.clientes + .section-alt { border-top: 0; }
+
+body.tema-oscuro .clientes { background: var(--c-bg-dark); }
+
+/* El viewport recorta la cinta y la desvanece en los bordes. Sin la máscara
+   los logos aparecen y desaparecen de golpe contra el borde de la pantalla,
+   que es lo que delata que hay un truco atrás. Va a todo el ancho a propósito:
+   una cinta que arranca y termina dentro del container se ve como una caja,
+   no como algo que sigue de largo. */
+.clientes-viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+/* ---- Estado base: SIN JavaScript ----
+   Una sola tanda, quieta, envuelta y centrada. Es también lo que se ve con
+   "reducir movimiento" activado. Todo lo de la animación cuelga de la clase
+   .cinta-lista, que agrega main.js recién después de clonar las tandas: así
+   nunca se ve una cinta a medio armar. */
+.clientes-cinta {
+  display: flex;
+  justify-content: center;
+}
+
+.clientes-tanda {
+  --gap: clamp(2rem, 3.4vw, 3.4rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+  row-gap: clamp(1.75rem, 3vw, 2.5rem);
+  padding-inline: calc(var(--gap) / 2);
+  list-style: none;
+  margin-inline: auto;
+  max-width: var(--container);
+}
+
+.clientes-tanda li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* ---- Estado con JavaScript: la cinta desfila ----
+   main.js clona la tanda hasta que la cinta mide más del doble que la
+   pantalla, escribe cuántas quedaron en --tandas y pone esta clase.
+   El desplazamiento es -100% ÷ --tandas: exactamente el ancho de UNA tanda.
+   Al llegar ahí la tanda 2 está donde arrancó la 1, así que volver a cero no
+   se nota y el loop parece infinito. Calcularlo con la variable (en vez de
+   un -33% escrito a mano) es lo que permite que la cantidad de copias cambie
+   según el tamaño de pantalla sin romper el calce. */
+.clientes-cinta.cinta-lista {
+  width: max-content;
+  justify-content: flex-start;
+  animation: desfilar var(--dur-cinta, 30s) linear infinite;
+  will-change: transform;
+}
+
+/* width:max-content en la cinta no alcanza: sin flex:none, flex igual
+   comprimiría las tandas, y ahí el tercio dejaría de calzar. */
+.cinta-lista .clientes-tanda {
+  flex: none;
+  flex-wrap: nowrap;
+  max-width: none;
+  margin-inline: 0;
+}
+
+@keyframes desfilar {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(calc(-100% / var(--tandas, 3)), 0, 0); }
+}
+
+/* SIN pausa al pasar el mouse. La había puesto "por si alguien quiere mirar
+   un logo", y era una mala idea: la tira ocupa todo el ancho y está justo
+   debajo del hero, así que al scrollear el cursor le queda encima casi
+   siempre. La cinta se frenaba sola y parecía rota.
+
+   Además no había nada que mirar con calma: los logos no son enlaces ni
+   tienen texto para leer. Una pausa que no sirve para nada, que se dispara
+   sin querer y que hace parecer que la página se colgó. */
+
+/* SIN filtro de blanqueo. Antes había un `filter: brightness(0) invert(1)`
+   para forzar todo a blanco: destruye los logos que tienen texto calado
+   adentro de una forma (CELP y SWS quedaban como manchas blancas macizas,
+   porque el filtro pinta de blanco tanto el fondo del badge como las letras
+   que van encima). Los siete archivos ya vienen en blanco, así que no hace
+   falta. Si alguna vez entra un logo oscuro, se blanquea el archivo, no acá. */
+.clientes-tanda img {
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  opacity: 0.78;
+  transition: opacity 260ms ease;
+}
+
+/* Altos por proporción, no uno solo para todos. Un logo apaisado y uno
+   cuadrado al mismo alto no pesan lo mismo en la fila: el cuadrado se ve
+   diminuto. Estos valores igualan el área aproximada de cada uno. */
+.clientes-tanda .logo--ancho  img { height: clamp(26px, 2.6vw, 36px); }
+.clientes-tanda .logo--medio  img { height: clamp(33px, 3.3vw, 45px); }
+.clientes-tanda .logo--alto   img { height: clamp(41px, 4.1vw, 56px); }
+
+/* Excepción para el logo que trae dos renglones de texto adentro (CELP).
+   Con el alto de `logo--ancho` los renglones quedaban en 6px y se leían como
+   una mancha. Va un poco más grande aunque rompa el equilibrio de áreas:
+   entre un logo parejo pero ilegible y uno legible, gana el legible. */
+.clientes-tanda .logo--lockup img { height: clamp(31px, 3.1vw, 43px); }
+
+.clientes-tanda img:hover { opacity: 1; }
+
+/* ---- Botón de pausa ----
+   La cinta se mueve sola todo el tiempo, y WCAG 2.2.2 (nivel A) pide que lo
+   que se mueve solo más de cinco segundos junto a otro contenido se pueda
+   parar. Respetar "reducir movimiento" no alcanza: hay quien no sabe que esa
+   opción existe. La pausa al pasar el mouse ya se probó y se descartó (ver
+   arriba): se disparaba sola al scrollear. Un botón explícito no.
+
+   Lo crea main.js, y solo cuando la cinta arranca a moverse: sin JavaScript
+   o con movimiento reducido la tira está quieta y el botón no tiene sentido.
+   Va sobre el borde IZQUIERDO, donde la máscara ya desvanece los logos. A la
+   derecha quedaba abajo del botón flotante de WhatsApp cada vez que la tira
+   pasaba por el pie de la pantalla (en la primera pantalla, siempre). El
+   área de toque es de 44px aunque el círculo visible mida 32. */
+.cinta-pausa {
+  position: absolute;
+  left: var(--sp-3);
+  top: 50%;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  color: var(--c-text-muted);
+  transform: translateY(-50%);
+  transition: color 200ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cinta-pausa::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--c-bg-dark);
+  border: 1px solid var(--c-border);
+  transition: border-color 200ms ease;
+}
+
+/* display:grid le gana al atributo hidden: sin esto el botón se vería
+   también con la cinta quieta. */
+.cinta-pausa[hidden] { display: none; }
+
+.cinta-pausa svg { width: 12px; height: 12px; fill: currentColor; }
+
+@media (hover: hover) and (pointer: fine) {
+  .cinta-pausa:hover { color: var(--c-text); }
+  .cinta-pausa:hover::before { border-color: var(--c-text-muted); }
+}
+
+.cinta-pausa:active { transform: translateY(-50%) scale(0.94); }
+
+.clientes-cinta.cinta-pausada { animation-play-state: paused; }
+
+/* Con "reducir movimiento" main.js ni siquiera clona, así que alcanza con
+   apagar la máscara y las transiciones: el estado base ya es la grilla quieta. */
+@media (prefers-reduced-motion: reduce) {
+  .clientes-viewport {
+    -webkit-mask-image: none;
+            mask-image: none;
+    padding-inline: var(--sp-6);
+  }
+  .clientes-tanda img { transition: none; }
+}
+
+/* ============================================================
+   Servicios — tarjetas que se reemplazan al scrollear
+   ============================================================
+   .pin-alto es una caja alta y vacía cuyo único trabajo es dar scroll.
+   .pin-clavado va adentro con position:sticky y se queda quieta mientras
+   ese scroll se consume. La altura la escribe main.js, porque depende del
+   alto de la ventana y de cuántas tarjetas haya.
+
+   Todo cuelga de .con-pin, que main.js agrega solo cuando corresponde. Sin
+   esa clase el bloque se comporta como la lista de siempre, que es lo que
+   se ve en celular, con movimiento reducido o sin JavaScript.
+   ============================================================ */
+
+@media (min-width: 900px) {
+
+  /* Sin relleno de sección: la caja pegajosa ya centra su contenido en el
+     alto de la ventana. Los dos juntos daban 274px vacíos antes del título. */
+  #servicios { padding-block: 0; }
+
+  .pin-alto.con-pin { position: relative; }
+
+  .con-pin .pin-clavado {
+    position: sticky;
+    top: var(--header-h);
+    min-height: calc(100vh - var(--header-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Las cuatro tarjetas comparten la MISMA celda de grilla: por eso se
+     superponen en vez de apilarse. El alto de la pila lo marca la más alta,
+     así que al cambiar de tarjeta la caja no salta de tamaño. */
+  .con-pin .servicios-lista {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .con-pin .servicio {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 420ms ease,
+                transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0s linear 420ms;
+  }
+
+  /* visibility además de opacity: una tarjeta en opacity:0 sigue siendo
+     clickeable y sus enlaces siguen entrando en el recorrido del tabulador.
+     El delay en la transición de visibility es para que no desaparezca de
+     golpe antes de terminar de desvanecerse. */
+  .con-pin .servicio.is-activa {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  /* La que todavía no llegó espera abajo, la que ya pasó se va para arriba:
+     el movimiento cuenta hacia dónde va el scroll. Sin esto el cambio se
+     nota poco si el visitante está leyendo en vez de mirando. */
+  .con-pin .servicio           { transform: translateY(26px); }
+  .con-pin .servicio.ya-paso   { transform: translateY(-26px); }
+  .con-pin .servicio.is-activa { transform: translateY(0); }
+
+  /* El hover no puede mover la tarjeta acá adentro: usa el mismo transform
+     que la transición de entrada y salida, y se pisarían. */
+  .con-pin .servicio.is-activa:hover { transform: translateY(0); }
+
+  .con-pin .pin-progreso { display: block; }
+}
+
+/* Barra de avance. Escondida por defecto: sin pin no significa nada. */
+.pin-progreso {
+  display: none;
+  height: 2px;
+  margin-top: var(--sp-10, 2.5rem);
+  background: var(--c-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.pin-progreso > span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--c-accent);
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .con-pin .servicio { transition: none; }
+}
+
+/* ---- Índice de servicios (solo con el pin) ----
+   Con el pin se ve una tarjeta por vez, y hasta el 27/09 no había forma de
+   saber cuáles venían ni de ir directo a una: para comparar había que
+   acordarse de las anteriores. El índice muestra los cinco nombres, marca el
+   que está a la vista y lleva a cualquiera con un clic (main.js calcula a qué
+   altura del recorrido aparece cada tarjeta).
+
+   Sin pin —celular, movimiento reducido o sin JavaScript— las tarjetas están
+   todas a la vista y el índice sobra, así que ni se dibuja. */
+.servicios-indice { display: none; }
+
+@media (min-width: 900px) {
+  .con-pin .servicios-indice {
+    display: flex;
+    flex-direction: column;
+    margin: var(--sp-6) 0 var(--sp-8);
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.servicios-indice a {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 40px;
+  font-weight: 600;
+  color: var(--c-text-muted);
+  transition: color 200ms ease;
+}
+
+/* La rayita crece en el que está activo. Es horizontal y va con transform:
+   anima barato y no mueve el texto. */
+.servicios-indice a::before {
+  content: "";
+  flex: none;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-accent);
+  opacity: 0.45;
+  transform: scaleX(0.3);
+  transform-origin: left;
+  transition: transform 280ms cubic-bezier(0.23, 1, 0.32, 1), opacity 200ms ease;
+}
+
+.servicios-indice a[aria-current="true"] { color: var(--c-text); }
+
+.servicios-indice a[aria-current="true"]::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .servicios-indice a:hover { color: var(--c-text); }
+}
+
+/* Con índice, la nota "¿No sabés cuál te sirve?" pierde el margen grande:
+   índice, nota y botón se leen como un solo bloque. */
+.con-pin .servicios-fijo__nota { margin-bottom: var(--sp-5, 1.25rem); }
+
+/* ---- Tarjetas plegables en celular (solo la home) ----
+   En una pantalla de 390px las cinco tarjetas completas medían unos 4.300px:
+   cinco pantallas de scroll antes de llegar a la sección de IA. Plegadas
+   muestran ícono, nombre y la frase que explica el servicio, y el botón
+   "Ver qué incluye" abre la lista, el "para quién" y la consulta.
+
+   Todo cuelga de .servicios-plegables, que main.js pone solo abajo de 900px.
+   Sin JavaScript las tarjetas quedan completas, como antes. */
+.servicio__abrir {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--c-accent-ink);
+}
+
+.servicio__abrir[hidden] { display: none; }
+
+.servicio__abrir svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.servicio__abrir[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.servicios-plegables .servicio { padding: var(--sp-6); }
+.servicios-plegables .servicio__intro { margin-bottom: var(--sp-2); }
+.servicios-plegables .servicio__detalle { padding-top: var(--sp-4); }
+.servicios-plegables .servicio__detalle:not(.is-abierto) { display: none; }
+
+.servicios-plegables .servicio__detalle.is-abierto {
+  animation: detalle-entra 240ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes detalle-entra {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servicios-plegables .servicio__detalle.is-abierto { animation: none; }
+  .servicio__abrir svg { transition: none; }
+}
+
+
+/* ============================================================
+   Estudio — presentación en dos columnas y tarjetas numeradas
+   ============================================================ */
+
+.estudio-doble {
+  display: grid;
+  gap: var(--sp-12);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  /* La izquierda un poco más angosta que la derecha: es texto corrido y por
+     encima de 70 caracteres por renglón se vuelve incómodo de leer. */
+  .estudio-doble { grid-template-columns: 0.92fr 1.08fr; gap: var(--sp-16); }
+}
+
+/* :not(.volanta) no es un detalle: la volanta también es un <p> hijo directo,
+   así que sin la exclusión se comía su color celeste y encima le sumaba un
+   margen superior de 20px que ninguna otra sección tiene. Eso hacía que esta
+   columna arrancara 19px más abajo que la de al lado. */
+.estudio-doble__texto > p:not(.volanta) {
+  color: var(--c-text-muted);
+  margin-top: var(--sp-5, 1.25rem);
+}
+
+/* Un solo párrafo cargando toda la presentación: va un punto más grande que
+   el texto corrido normal, para que tenga el peso de una bajada y no el de
+   un párrafo suelto. El <strong> del nombre es lo único que se destaca. */
+.estudio-doble__lede {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  max-width: 46ch;
+}
+
+.estudio-doble__lede strong { color: var(--c-text); font-weight: 700; }
+.estudio-doble__texto h2 { margin-bottom: var(--sp-2); }
+
+/* ---- Píldoras de tecnología ---- */
+.pildoras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  list-style: none;
+  margin: var(--sp-8) 0 0;
+  padding: 0;
+}
+
+.pildora {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem var(--sp-4);
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+/* El puntito de color: hace que la lista se lea como un conjunto y no como
+   botones. Va en ::before para no ensuciar el HTML con spans vacíos. */
+.pildora::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  flex: none;
+}
+
+.estudio-doble__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+
+/* ---- Columna derecha ---- */
+.estudio-doble__pruebas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5, 1.25rem);
+}
+
+.dato-grande {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+}
+
+.dato-grande__cifra {
+  font-size: clamp(2.6rem, 4.5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--c-text);
+  margin: 0;
+  flex: none;
+}
+
+.dato-grande__texto {
+  margin: 0;
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  max-width: 30ch;
+}
+
+.capacidad {
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6) var(--sp-8);
+}
+
+.capacidad__titulo {
+  font-size: 1.0625rem;
+  margin-bottom: var(--sp-2);
+}
+
+.capacidad p { color: var(--c-text-muted); margin: 0; }
+
+/* ---- El proceso: línea de tiempo ----
+   Sin tarjetas a propósito. Con el molde de tarjeta (superficie, borde,
+   esquinas) el bloque se leía como una sección más, huérfana: era la misma
+   caja que Servicios, las capacidades y los testimonios. Los números sobre
+   una línea que los une hacen que el 01–04 signifique orden de verdad.
+
+   En pantallas anchas la línea es horizontal y los pasos van en fila; en
+   angostas la línea baja por la izquierda y los pasos se apilan. El anillo
+   del color del fondo alrededor de cada número es lo que "corta" la línea
+   para que no lo atraviese. */
+.numeradas {
+  display: grid;
+  gap: var(--sp-8);
+  grid-template-columns: 1fr;
+  position: relative;
+}
+
+/* línea vertical (pantallas angostas): pasa por el centro de los números */
+.numeradas::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--c-border) 6%, var(--c-border) 94%, transparent);
+}
+
+.numerada { position: relative; }
+
+.numerada__cabeza {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-3);
+}
+
+.numerada__numero {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-content: center;
+  border-radius: var(--radius);
+  background: var(--c-accent);
+  color: #05202F;          /* 6.5:1 sobre el cian, igual que el botón primario */
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
+  /* el anillo que interrumpe la línea al pasar por atrás del número */
+  box-shadow: 0 0 0 6px var(--c-bg);
+}
+
+.numerada h4 { margin: 0; font-size: 1.0625rem; line-height: 1.25; }
+
+.numerada p {
+  color: var(--c-text-muted);
+  margin: 0;
+  /* alineado con el título, no con el número: en angosto la línea vertical
+     pasa por la izquierda y el texto no debe pisarla */
+  padding-left: calc(42px + var(--sp-4));
+}
+
+@media (min-width: 900px) {
+  .numeradas { grid-template-columns: repeat(4, 1fr); gap: var(--sp-8); }
+
+  /* línea horizontal: a la altura del centro de los números (21px) */
+  .numeradas::before {
+    left: 2%;
+    right: 2%;
+    top: 21px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--c-border) 6%, var(--c-border) 94%, transparent);
+  }
+
+  /* el número arriba, el título debajo: cada paso es una columnita */
+  .numerada__cabeza {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-2);
+  }
+
+  .numerada p { padding-left: 0; font-size: 0.9375rem; }
+}
+
+
+/* ============================================================
+   Resplandor de fondo fuera del hero
+   ------------------------------------------------------------
+   Misma receta que .hero__fondo, con dos diferencias:
+
+   1. Se mueve más. La deriva del hero dura 26s y recorre poco, porque ahí
+      compite con el titular que entra línea por línea. Acá dura 17s y
+      recorre casi el doble.
+
+   2. Solo se anima mientras la sección está en pantalla. main.js pone y
+      saca .glow-activo con un IntersectionObserver. Sin eso el navegador
+      sostiene dos animaciones con blur para siempre, aunque estén a tres
+      pantallas de distancia, y eso se paga en el scroll de un celular.
+   ============================================================ */
+
+.fondo-glow {
+  position: absolute;
+  inset: -45%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side, rgba(0, 184, 212, 0.20), transparent 72%) 24% 30% / 58% 58% no-repeat,
+    radial-gradient(closest-side, rgba(27, 69, 112, 0.48), transparent 72%) 76% 68% / 64% 64% no-repeat;
+  filter: blur(16px);
+}
+
+.fondo-glow.glow-activo {
+  animation: derivar-amplio 17s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes derivar-amplio {
+  from { transform: translate3d(-6%, -4%, 0) scale(1); }
+  to   { transform: translate3d(7%, 5%, 0) scale(1.16); }
+}
+
+/* El resplandor de la CTA es un poco más intenso: es el cierre de la página
+   y no tiene contenido compitiéndole al lado. */
+.fondo-glow--cta {
+  background:
+    radial-gradient(closest-side, rgba(0, 184, 212, 0.26), transparent 70%) 28% 42% / 62% 78% no-repeat,
+    radial-gradient(closest-side, rgba(27, 69, 112, 0.55), transparent 72%) 74% 58% / 66% 82% no-repeat;
+}
+
+/* --- Contenedores --- */
+
+/* En Servicios el recorte va en .pin-clavado, que ES el elemento sticky.
+   Si se pusiera en la <section>, el sticky dejaría de pegarse. */
+.pin-clavado {
+  position: relative;
+  overflow: hidden;
+}
+
+.pin-clavado > .container { position: relative; z-index: 1; }
+
+.cta-final {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-final > .container { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fondo-glow.glow-activo { animation: none; }
+}
+
+
+/* ============================================================
+   Contacto — argumento a la izquierda, formulario a la derecha
+   ============================================================ */
+
+.contacto-doble {
+  display: grid;
+  gap: var(--sp-12);
+  /* minmax(0, 1fr) y no 1fr a secas. Es la misma columna elástica pero con
+     mínimo cero, y esa diferencia era el bug del contacto en celular.
+
+     Un track `1fr` tiene mínimo automático: no baja del ancho mínimo de su
+     contenido. Y adentro había dos cosas que se niegan a achicarse — el
+     <select> nunca mide menos que su opción más larga, y .btn lleva
+     white-space: nowrap con el texto más largo del sitio. Entre los dos
+     estiraban la columna a 373px dentro de un contenedor de 342, y como el
+     desborde queda recortado y no scrolleable, el texto aparecía cortado
+     contra el borde derecho. */
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  text-align: left;      /* .cta-final centra todo; acá no queremos eso */
+}
+
+@media (min-width: 900px) {
+  .contacto-doble { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-16); }
+}
+
+/* .cta-final centraba su contenido y ese centrado sube por herencia.
+   Acá se reinicia para las dos columnas. */
+.contacto-doble h2,
+.contacto-doble p { text-align: left; margin-inline: 0; }
+
+.contacto-doble__texto h2 { margin-bottom: var(--sp-4); }
+.contacto-doble__texto .lede { color: var(--c-text-muted); }
+
+.contacto-doble__nota {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  margin-top: var(--sp-5, 1.25rem);
+  max-width: 46ch;
+}
+
+.contacto-doble__acciones { margin-top: var(--sp-8); }
+.contacto-doble .cta-final__email { margin-top: var(--sp-6); }
+
+/* ---- El formulario ---- */
+.contacto-form {
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5, 1.25rem);
+}
+
+.contacto-form__titulo {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-accent-ink);
+  margin: 0;
+}
+
+/* Nombre y negocio comparten renglón en pantallas anchas: son dos datos
+   cortos y ponerlos uno debajo del otro alarga el formulario sin motivo. */
+.contacto-form__par {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  .contacto-form__par { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+.campo { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+.campo label {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.campo__opcional { font-weight: 400; color: var(--c-text-muted); }
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--c-text);
+  background: var(--c-bg-dark);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 0.7rem var(--sp-4);
+  /* 44px de alto mínimo: es el tamaño por debajo del cual un dedo falla. */
+  min-height: 44px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.campo textarea { resize: vertical; min-height: 88px; line-height: 1.5; }
+
+/* Antes #62798D, anotado como 4.6:1, pero medido sobre el fondo real del
+   campo (#04121F) daba 4.2:1. Este da 4.7:1 y sigue viéndose más apagado que
+   lo que escribe la persona, que es la diferencia que importa. */
+.campo input::placeholder,
+.campo textarea::placeholder { color: #6A8196; }
+
+.campo input:focus-visible,
+.campo select:focus-visible,
+.campo textarea:focus-visible {
+  outline: none;
+  border-color: var(--c-accent);
+  /* El aro además del color: quien no distingue el cian del gris necesita
+     una señal de foco que no dependa del color. */
+  box-shadow: 0 0 0 3px rgba(0, 184, 212, 0.28);
+}
+
+/* La flecha del select dibujada a mano: la nativa se pinta con los colores
+   del sistema y en un campo oscuro suele quedar negra sobre negro. */
+.campo select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239FB4C6' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-4) center;
+  background-size: 18px;
+  padding-right: var(--sp-10, 2.5rem);
+}
+
+/* El desplegable abierto lo pinta el sistema operativo, no esta hoja: sin
+   esto, en Windows las opciones salen blancas sobre blanco. */
+.campo select option { background: #0B2336; color: var(--c-text); }
+
+.contacto-form__aviso {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campo input, .campo select, .campo textarea { transition: none; }
+}
+
+
+/* ============================================================
+   Testimonios
+   ============================================================
+   Hubo un intento de poner el logo del cliente en cada pie. Se sacó: de las
+   cuatro reseñas solo tres tienen logo, y una tarjeta sin él al lado de tres
+   con él se lee como un error, no como una variante. Tres cuartos de una
+   idea aplicada es peor que la idea sin aplicar.
+   ============================================================ */
+
+.testimonio__pie {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+
+
+/* Acá había un segundo `#servicios.section { padding-block: 0 }` fuera de
+   todo media query. Era un duplicado de la regla que ya vive dentro del
+   bloque de 900px, y como esta no tenía condición, aplicaba también en
+   celular — donde el pin está apagado y ese relleno SÍ hace falta.
+   Consecuencia: "Qué hace Zaiwebs" quedaba pegado a la tira de logos y la
+   última tarjeta pegada a Proyectos, las dos con 0px de separación. */
+
+
+/* ============================================================
+   Ajustes táctiles — celular y tablet
+   ------------------------------------------------------------
+   Abajo de 900px todo se toca con el dedo, y el mínimo por debajo del cual
+   se falla es 44x44. Estos enlaces medían entre 17 y 29px de alto: no es que
+   se vieran mal, es que erraban al tocarlos.
+
+   Se resuelve con padding y margen negativo: el área de toque crece pero el
+   texto queda donde estaba, así que no cambia el diseño ni un píxel.
+   ============================================================ */
+
+@media (max-width: 899px) {
+
+  /* "Ver sitio" de cada tarjeta de proyecto: medía 26px */
+  .portfolio-card__link {
+    padding-block: var(--sp-3);
+    margin-block: calc(var(--sp-3) * -1);
+  }
+
+  /* Enlaces del pie: medían 17px. La clase real es .site-footer__list, no
+     __nav — el primer intento apuntó a un selector que no existe.
+
+     min-height en vez de padding a ojo: con padding quedaban en 42px, dos
+     por debajo del mínimo. Así el número es el número. */
+  .site-footer__list a,
+  .site-footer__bottom a,
+  .cta-final__email a,
+  .contacto-doble__texto a[href^="mailto:"] {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* El logo del header medía 28px de alto como zona de toque. */
+  .site-header__logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* El rubro de cada proyecto estaba en 11.2px, por debajo de lo cómodo
+     de leer en una pantalla chica sostenida a distancia de brazo. */
+  .portfolio-card__rubro { font-size: 0.75rem; }
+}
+
+
+/* ============================================================
+   Carruseles de celular
+   ------------------------------------------------------------
+   Proyectos y Testimonios apilan sus tarjetas una debajo de otra, y en una
+   pantalla de 390px eso son 1.700 y 1.400px de scroll para tres y cuatro
+   elementos que se comparan entre sí. Deslizando de costado ocupan el alto
+   de uno solo y se comparan mejor.
+
+   Es CSS puro, sin JavaScript: scroll-snap se encarga de que cada tarjeta
+   quede centrada al soltar el dedo, y el navegador aporta la inercia. Un
+   carrusel con JS acá sería peor: más código, peor rendimiento y perdería el
+   scroll nativo del sistema.
+   ============================================================ */
+
+@media (max-width: 899px) {
+
+  .portfolio-preview-grid,
+  .testimonios-grid {
+    display: flex;
+    gap: var(--sp-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* El padding lateral y el margen negativo hacen que las tarjetas puedan
+       llegar hasta el borde de la pantalla al deslizar, en vez de frenar
+       contra el margen del container. Eso es lo que le da la sensación de
+       carrusel y no de caja con scroll. */
+    padding-inline: var(--sp-6);
+    margin-inline: calc(var(--sp-6) * -1);
+    padding-bottom: var(--sp-4);
+    scroll-padding-inline: var(--sp-6);
+    /* Sin barra a la vista: en celular no se usa y ocupa lugar. */
+    scrollbar-width: none;
+  }
+
+  .portfolio-preview-grid::-webkit-scrollbar,
+  .testimonios-grid::-webkit-scrollbar { display: none; }
+
+  .portfolio-preview-grid > *,
+  .testimonios-grid > * {
+    /* 86% deja asomar la tarjeta siguiente. Ese borde asomando es lo que
+       avisa que hay más para el costado; con 100% nadie desliza. */
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+    max-width: none;
+  }
+
+  /* La tarjeta de proyecto es flex en columna y con ancho fijo se estiraba;
+     esto la deja crecer solo lo que necesita. */
+  .portfolio-preview-grid .portfolio-card { height: auto; }
+}
+
+/* ============================================================
+   Contacto en pantalla angosta — que nada empuje la columna
+   ============================================================ */
+
+/* El minmax(0,1fr) de arriba permite que la columna se achique; esto permite
+   que el contenido acompañe. Sin min-width:0 los hijos de un flex o un grid
+   tampoco bajan de su ancho mínimo, así que el arreglo quedaba a mitad. */
+.contacto-form,
+.contacto-form__par,
+.campo { min-width: 0; }
+
+.campo input,
+.campo select,
+.campo textarea { min-width: 0; max-width: 100%; }
+
+@media (max-width: 899px) {
+  /* "Escribir por WhatsApp sin formulario" es el texto de botón más largo del
+     sitio: 342px en una sola línea, justo el ancho útil de una pantalla de
+     390. El white-space: nowrap general de .btn está bien para botones cortos,
+     pero acá hay que levantarlo o el botón sobresale sí o sí. */
+  .contacto-doble__acciones .btn {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+    padding-block: 0.8rem;
+  }
+
+  /* De paso ocupa todo el ancho: un botón suelto de 342px en una columna de
+     342 ya estaba a ancho completo de hecho, así que esto solo lo formaliza y
+     evita que quede un pixel colgando. */
+  .contacto-doble__acciones { display: flex; }
+  .contacto-doble__acciones .btn { flex: 1; }
+}
+
+
+/* ============================================================
+   Automatización con IA — argumento a la izquierda, conversación
+   de ejemplo a la derecha
+   ------------------------------------------------------------
+   Va en el tono más profundo y con filete arriba y abajo: queda entre
+   Servicios (fondo base) y Proyectos (banda alternada), y así se despega
+   de las dos en vez de fundirse con alguna.
+   ============================================================ */
+
+.seccion-ia {
+  position: relative;
+  background: var(--c-bg-dark);
+  border-block: 1px solid var(--c-border);
+}
+
+.ia-doble {
+  display: grid;
+  gap: var(--sp-12);
+  /* minmax(0, …) por el mismo motivo que en Contacto: sin mínimo cero, una
+     burbuja o una píldora larga estira la columna y desborda en celular. */
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .ia-doble {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--sp-16);
+  }
+}
+
+.ia-doble__texto h2 { margin-bottom: var(--sp-2); }
+.ia-doble__texto .lede { max-width: 50ch; }
+
+/* Tres ideas cortas, SIN tarjetas: con la conversación al lado, tres cajas
+   más convertían la sección en una grilla de cuatro rectángulos que
+   competían con el chat. Un filete a la izquierda alcanza para agruparlas. */
+.ia-puntos {
+  display: grid;
+  gap: var(--sp-5, 1.25rem);
+  margin-top: var(--sp-8);
+}
+
+.ia-puntos li {
+  padding-left: var(--sp-5, 1.25rem);
+  border-left: 2px solid var(--c-border);
+}
+
+.ia-puntos h3 {
+  font-size: 1.0625rem;
+  margin-bottom: var(--sp-1);
+  color: var(--c-text);
+}
+
+.ia-puntos p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--c-text-muted);
+}
+
+.ia-doble__rubros {
+  margin-top: var(--sp-8);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+/* .pildoras trae 32px de margen arriba, pensado para ir después de un
+   párrafo. Acá va pegada a su propio rótulo. */
+.ia-doble__pildoras { margin-top: var(--sp-3); }
+
+.ia-doble__ejemplos {
+  margin-top: var(--sp-4);
+  max-width: 52ch;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+.ia-doble__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+
+/* .btn fuerza display:inline-flex, que le gana al atributo hidden. Sin
+   esto "Probá a Zai" se vería aunque el chat esté apagado. */
+[data-zai-abrir][hidden] { display: none; }
+
+/* ---- La conversación de ejemplo ---- */
+
+.chat-demo {
+  margin: 0;
+  width: 100%;
+  max-width: 460px;
+  justify-self: center;
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.chat-demo__cabeza {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5, 1.25rem);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.chat-demo__avatar {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--c-accent-soft);
+  display: grid;
+  place-content: center;
+}
+
+.chat-demo__avatar svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--c-accent-ink);
+  stroke-width: 2;
+}
+
+.chat-demo__quien {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.chat-demo__nombre {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--c-text);
+}
+
+.chat-demo__estado {
+  font-size: 0.8125rem;
+  color: var(--c-accent-ink);
+}
+
+/* El fondo del chat es el tono base: las burbujas del asistente usan la
+   superficie de las tarjetas y así se leen como objetos sobre un fondo. */
+.chat-demo__mensajes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5, 1.25rem);
+  background: var(--c-bg);
+  list-style: none;
+}
+
+.chat-msg {
+  max-width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.6rem 0.85rem 0.45rem;
+  border-radius: 14px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--c-text);
+}
+
+/* La hora: #9FB4C6 da 5.9:1 sobre la burbuja del cliente y 6.8:1 sobre la
+   del asistente. */
+.chat-msg time {
+  align-self: flex-end;
+  font-size: 0.6875rem;
+  color: var(--c-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Visto desde el teléfono del cliente: lo suyo a la derecha, el asistente
+   a la izquierda. Es la convención que cualquiera reconoce de WhatsApp. */
+.chat-msg--cliente {
+  align-self: flex-end;
+  background: #0E3A4A;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-msg--asistente {
+  align-self: flex-start;
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-demo__derivacion {
+  align-self: center;
+  margin-top: var(--sp-2);
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  background: var(--c-bg-dark);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--c-accent-ink);
+  text-align: center;
+}
+
+.chat-demo__aviso {
+  padding: var(--sp-3) var(--sp-5, 1.25rem);
+  border-top: 1px solid var(--c-border);
+  font-size: 0.8125rem;
+  color: var(--c-text-muted);
+}

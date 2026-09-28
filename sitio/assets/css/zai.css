@@ -1,0 +1,471 @@
+/* ============================================================
+   ZAI — chat del asistente virtual
+   ------------------------------------------------------------
+   Esta hoja la carga zai.js SOLO si el asistente está activo: con Zai
+   apagado ni se descarga. Usa los tokens del tema oscuro, igual que el
+   resto del sitio, y repite el dibujo de la conversación de ejemplo de
+   la sección de IA para que el chat real y la demo se reconozcan.
+   ============================================================ */
+
+/* ---- Botón flotante ----
+   Con Zai activo ocupa el lugar del botón de WhatsApp: dos botones
+   apilados compiten y tapan contenido, y WhatsApp sigue a mano dentro
+   del chat. Esta regla vive acá y no en components.css a propósito:
+   si Zai está apagado la hoja no se descarga y el botón de WhatsApp
+   vuelve solo. */
+body.zai-activo .whatsapp-float { display: none; }
+
+.zai-lanzador {
+  position: fixed;
+  right: var(--sp-6);
+  bottom: var(--sp-6);
+  z-index: 810;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  color: #05202F;   /* 6.5:1 sobre el cian, igual que el botón primario */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.zai-lanzador:hover {
+  background: var(--c-accent-ink);
+  transform: translateY(-2px);
+}
+
+/* La cara es un círculo azul oscuro, igual que el fondo del sitio: el
+   cian del botón queda como anillo alrededor para que no se pierda. */
+.zai-lanzador .zai-cara {
+  width: 44px;
+  height: 44px;
+  flex: none;
+}
+
+/* Parpadeo cada 6 segundos: da vida sin distraer de lo que se lee. */
+.zai-lanzador .zai-cara__ojos ellipse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: zai-parpadeo 6s ease-in-out infinite;
+}
+
+@keyframes zai-parpadeo {
+  0%, 94%, 100% { transform: scaleY(1); }
+  97% { transform: scaleY(0.1); }
+}
+
+.zai-lanzador--saluda .zai-cara {
+  animation: zai-saludo 900ms ease-in-out;
+}
+
+@keyframes zai-saludo {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-14deg); }
+  45% { transform: rotate(10deg); }
+  70% { transform: rotate(-6deg); }
+}
+
+/* Aviso de mensaje nuevo: el saludo de Zai espera en el chat. El borde
+   del color del fondo lo despega de la cara. */
+.zai-lanzador__aviso {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #E5484D;
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  box-shadow: 0 0 0 2px #0A2540;
+}
+
+/* ---- Globo: el texto lo "dice" Zai ----
+   Va a la izquierda del botón, con la colita apuntando a la cara. */
+.zai-burbuja {
+  position: fixed;
+  right: calc(var(--sp-6) + 56px + 12px);
+  bottom: calc(var(--sp-6) + 8px);
+  z-index: 810;
+  max-width: 240px;
+  animation: zai-burbuja-entra 320ms ease-out;
+}
+
+.zai-burbuja[hidden] { display: none; }
+
+.zai-burbuja__texto {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 16px 16px 4px 16px;
+  background: #FFFAF1;
+  color: #0A2540;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+
+.zai-burbuja__texto::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  bottom: 10px;
+  border-style: solid;
+  border-width: 6px 0 6px 9px;
+  border-color: transparent transparent transparent #FFFAF1;
+}
+
+.zai-burbuja__cerrar {
+  position: absolute;
+  top: -9px;
+  left: -9px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1D3A5C;
+  color: #FFFAF1;
+  display: grid;
+  place-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.zai-burbuja__cerrar svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+/* En celular el globo tapa lo que se lee: texto corto. */
+.zai-burbuja__corto { display: none; }
+
+@media (max-width: 640px) {
+  .zai-burbuja__largo { display: none; }
+  .zai-burbuja__corto { display: inline; }
+}
+
+@keyframes zai-burbuja-entra {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---- Panel ---- */
+.zai-panel {
+  position: fixed;
+  right: var(--sp-6);
+  bottom: var(--sp-6);
+  z-index: 960;   /* por encima del botón de WhatsApp (800) y del header (900) */
+  width: min(390px, calc(100vw - 2 * var(--sp-6)));
+  height: min(620px, calc(100vh - 2 * var(--sp-6)));
+  display: flex;
+  flex-direction: column;
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+/* display:flex le gana al atributo hidden: sin esto el panel no se cierra. */
+.zai-panel[hidden] { display: none; }
+
+/* En celular ocupa toda la pantalla: una ventanita flotante sobre 375px
+   deja el teclado tapando la mitad de la charla. */
+@media (max-width: 640px) {
+  .zai-panel {
+    inset: 0;
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+  }
+
+  body.zai-abierto { overflow: hidden; }
+
+  body.zai-abierto .zai-lanzador { display: none; }
+}
+
+.zai-panel__cabeza {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-5, 1.25rem);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.zai-avatar {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+
+.zai-avatar .zai-cara {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.zai-panel__quien { flex: 1; min-width: 0; }
+
+.zai-panel__nombre {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--c-text);
+}
+
+.zai-panel__rol {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  color: var(--c-text-muted);
+}
+
+.zai-cerrar {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-content: center;
+  border-radius: var(--radius);
+  color: var(--c-text-muted);
+}
+
+.zai-cerrar:hover { color: var(--c-text); background: var(--c-bg); }
+
+.zai-cerrar svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+/* ---- Mensajes ---- */
+.zai-mensajes {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5, 1.25rem);
+  background: var(--c-bg);
+}
+
+.zai-msg {
+  max-width: 85%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 14px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--c-text);
+  /* Los saltos de línea de la respuesta se respetan sin interpretar HTML. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.zai-msg--visitante {
+  align-self: flex-end;
+  background: #0E3A4A;
+  border-bottom-right-radius: 4px;
+}
+
+.zai-msg--zai {
+  align-self: flex-start;
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  border-bottom-left-radius: 4px;
+}
+
+.zai-msg--aviso { color: var(--c-text-muted); }
+
+/* Botón de WhatsApp debajo de la respuesta en la que Zai deriva al equipo.
+   Verde de WhatsApp con texto oscuro: 8.2:1. Blanco sobre ese verde no
+   llega a 2:1. */
+.zai-derivar {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  background: var(--c-whatsapp);
+  color: #062A17;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: filter var(--transition);
+}
+
+.zai-derivar:hover { filter: brightness(1.06); }
+
+.zai-derivar svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  stroke: none;
+}
+
+.zai-escribiendo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.85rem 0.9rem;
+}
+
+.zai-escribiendo span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-text-muted);
+  animation: zai-punto 1.2s ease-in-out infinite;
+}
+
+.zai-escribiendo span:nth-child(2) { animation-delay: 0.15s; }
+.zai-escribiendo span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes zai-punto {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40%           { opacity: 1;   transform: translateY(-3px); }
+}
+
+/* ---- Preguntas sugeridas ---- */
+.zai-sugerencias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  padding: 0 var(--sp-5, 1.25rem) var(--sp-3);
+  background: var(--c-bg);
+}
+
+.zai-sugerencias[hidden] { display: none; }
+
+.zai-sugerencia {
+  min-height: 36px;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  text-align: left;
+  color: var(--c-accent-ink);
+}
+
+.zai-sugerencia:hover { border-color: var(--c-accent-ink); }
+
+/* ---- Escribir ---- */
+.zai-form {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  border-top: 1px solid var(--c-border);
+}
+
+.zai-form textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  max-height: 120px;
+  resize: none;
+  padding: 0.65rem 0.85rem;
+  font: inherit;
+  font-size: 1rem;   /* 16px: con menos, el iPhone hace zoom al tocar el campo */
+  line-height: 1.4;
+  color: var(--c-text);
+  background: var(--c-bg-dark);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.zai-form textarea::placeholder { color: #62798D; }
+
+.zai-form textarea:focus-visible {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px rgba(0, 184, 212, 0.28);
+}
+
+.zai-enviar {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-content: center;
+  border-radius: var(--radius);
+  background: var(--c-accent);
+  color: #05202F;
+}
+
+.zai-enviar:disabled { opacity: 0.5; cursor: default; }
+
+.zai-enviar svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+/* ---- Pie: WhatsApp y aviso ---- */
+.zai-pie {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: 0 var(--sp-4) max(var(--sp-3), env(safe-area-inset-bottom));
+}
+
+.zai-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  border: 1px solid #2E4A63;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--c-text);
+}
+
+.zai-whatsapp:hover { border-color: var(--c-whatsapp); }
+
+.zai-whatsapp svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--c-whatsapp);
+  stroke: none;
+}
+
+.zai-aviso {
+  margin: 0;
+  max-width: none;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--c-text-muted);
+}
+
+.zai-aviso a { text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) {
+  .zai-escribiendo span { animation: none; opacity: 0.7; }
+  .zai-lanzador { transition: none; }
+  .zai-lanzador:hover { transform: none; }
+  .zai-lanzador .zai-cara__ojos ellipse,
+  .zai-lanzador--saluda .zai-cara,
+  .zai-burbuja { animation: none; }
+}

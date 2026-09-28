@@ -1,0 +1,875 @@
+/* ============================================================
+   ZAIWEBS — Header, footer, botones, cards, componentes compartidos
+   ============================================================ */
+
+/* ============ Botones ============ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  line-height: 1;
+  min-height: 44px;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--c-accent);
+  color: var(--c-primary);
+}
+
+/* Los :hover de botones van solo con mouse. En un celular el hover queda
+   pegado después del toque: el botón quedaba levantado y con otro color
+   hasta tocar otra cosa, como si siguiera apretado. */
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background: var(--c-accent-hover);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-secondary:hover {
+    background: var(--c-primary);
+    color: #fff;
+  }
+}
+
+/* Al apretar, el botón se achica un pelo: es la confirmación de que la
+   página escuchó el toque, antes de que se abra WhatsApp. Va para mouse y
+   para dedo. 160 ms con salida rápida: más lento se siente pegajoso. */
+.btn:active {
+  transform: scale(0.97);
+  transition-duration: 160ms;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--c-primary);
+  color: var(--c-primary);
+}
+
+.section-dark .btn-secondary {
+  border-color: var(--c-text-invert);
+  color: var(--c-text-invert);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .section-dark .btn-secondary:hover {
+    background: var(--c-text-invert);
+    color: var(--c-primary);
+  }
+}
+
+.btn-ghost {
+  padding: 0.5rem 0;
+  color: var(--c-primary);
+  font-weight: 600;
+  position: relative;
+  min-height: auto;
+}
+
+.btn-ghost::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: var(--c-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.btn-ghost:hover::after { transform: scaleX(1); }
+
+.section-dark .btn-ghost { color: var(--c-text-invert); }
+
+.btn-block { width: 100%; }
+
+.btn-lg {
+  padding: 1.125rem 2.25rem;
+  font-size: 1.0625rem;
+}
+
+.btn svg { width: 1.25em; height: 1.25em; flex-shrink: 0; }
+
+/* ============ Header ============ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  background: var(--c-bg);
+  height: var(--header-h-mobile);
+  display: flex;
+  align-items: center;
+  transition: box-shadow var(--transition);
+}
+
+@media (min-width: 900px) {
+  .site-header { height: var(--header-h); }
+}
+
+.site-header.is-scrolled {
+  box-shadow: var(--shadow-sm);
+}
+
+.site-header__inner {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--sp-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+}
+
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.site-header__logo img {
+  height: 28px;
+  width: 148px;
+}
+
+@media (min-width: 900px) {
+  .site-header__logo img {
+    height: 34px;
+    width: 180px;
+  }
+}
+
+.site-nav {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  /* Grilla de tres columnas con los costados iguales: así el nav queda
+     centrado en la PÁGINA. Con flex + margin auto se centraba en el
+     espacio sobrante, y como el logo (180px) es más ancho que el bloque
+     de acciones (144px), quedaba 18px corrido a la derecha. */
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .site-header__actions { justify-self: end; }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-8);
+    margin-inline: 0;
+  }
+}
+
+/* Entre 900 y 1023px el nav es tan ancho que la columna del logo no entra
+   en su mitad y empuja: las columnas laterales dejan de ser iguales y el
+   menú se corre. Con menos separación entra y la simetría se mantiene. */
+@media (min-width: 900px) and (max-width: 1023px) {
+  /* Con el enlace "IA" la nav tiene seis entradas: a 24px de separación
+     la columna del logo ya no entraba a 900px. A 20px vuelve a entrar. */
+  .site-nav { gap: var(--sp-5); }
+}
+
+@media (min-width: 900px) {
+
+  .site-nav__link {
+    font-weight: 500;
+    color: var(--c-text);
+    padding-block: var(--sp-2);
+    position: relative;
+    transition: color var(--transition);
+  }
+
+  .site-nav__link::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--c-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+  }
+
+  .site-nav__link:hover { color: var(--c-primary); }
+  .site-nav__link:hover::after { transform: scaleX(1); }
+
+  .site-nav__link.is-active {
+    color: var(--c-primary);
+    font-weight: 600;
+  }
+
+  .site-nav__link.is-active::after { transform: scaleX(1); }
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-shrink: 0;
+}
+
+/* Selector de idioma — maqueta lista para pt-BR, oculto hasta el lanzamiento */
+.lang-switch {
+  position: relative;
+}
+
+.lang-switch__btn {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius);
+  transition: background var(--transition), color var(--transition);
+}
+
+.lang-switch__btn:hover {
+  background: var(--c-bg-alt);
+  color: var(--c-primary);
+}
+
+.lang-switch__btn svg {
+  width: 14px; height: 14px;
+  transition: transform var(--transition);
+}
+
+.lang-switch__menu {
+  position: absolute;
+  top: calc(100% + var(--sp-2));
+  right: 0;
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  min-width: 120px;
+  padding: var(--sp-2);
+  display: none;
+}
+
+.lang-switch__menu a {
+  display: block;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 6px;
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+.lang-switch__menu a:hover { background: var(--c-bg-alt); }
+
+.site-header__actions .btn {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .site-header__actions .btn {
+    display: inline-flex;
+  }
+}
+
+/* ============ Menú móvil (hamburguesa) ============ */
+
+.menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 900px) {
+  .menu-toggle { display: none; }
+}
+
+.menu-toggle__icon {
+  position: relative;
+  width: 22px;
+  height: 16px;
+}
+
+.menu-toggle__icon span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--c-primary);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition), top var(--transition);
+}
+
+.menu-toggle__icon span:nth-child(1) { top: 0; }
+.menu-toggle__icon span:nth-child(2) { top: 7px; }
+.menu-toggle__icon span:nth-child(3) { top: 14px; }
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(1) {
+  top: 7px;
+  transform: rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(3) {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  background: var(--c-bg);
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-6);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--transition), opacity var(--transition), visibility 0s linear var(--transition);
+}
+
+.mobile-menu.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: transform var(--transition), opacity var(--transition), visibility 0s;
+}
+
+@media (min-width: 900px) {
+  .mobile-menu { display: none; }
+}
+
+.mobile-menu__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h-mobile);
+}
+
+.mobile-menu__top img {
+  height: 28px;
+  width: 148px;
+}
+
+.mobile-menu__close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu__close svg {
+  width: 22px; height: 22px;
+}
+
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-top: var(--sp-8);
+}
+
+.mobile-menu__nav a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--c-primary);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.mobile-menu__nav a.is-active { color: var(--c-accent-hover); }
+
+/* :not([hidden]) no sobra: `display: flex` le gana al atributo hidden, así
+   que el selector de idioma aparecía en el menú móvil aunque estuviera
+   marcado como oculto — un selector con un solo idioma disponible. En
+   escritorio no pasaba porque ahí la regla no fuerza display. */
+.mobile-menu__lang:not([hidden]) {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+
+.mobile-menu__lang a {
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.mobile-menu__cta {
+  margin-top: auto;
+  padding-top: var(--sp-8);
+}
+
+body.menu-open { overflow: hidden; }
+
+/* ============ Cards ============ */
+
+.card {
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.card__icon {
+  width: 48px;
+  height: 48px;
+  color: var(--c-accent-ink);
+  margin-bottom: var(--sp-4);
+}
+
+.card__icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--c-accent-ink);
+  fill: none;
+  stroke-width: 2;
+}
+
+.card h3 { margin-bottom: var(--sp-3); }
+
+.card p { color: var(--c-text-muted); }
+
+/* ============ Badges ============ */
+
+.badge {
+  display: inline-block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: 999px;
+  background: var(--c-accent-soft);
+  color: var(--c-primary-800);
+}
+
+/* Franja "Próximamente" */
+
+
+
+
+/* ============ Footer ============ */
+
+.site-footer {
+  background: var(--c-bg-dark);
+  color: var(--c-text-invert);
+  padding-block: var(--sp-16) var(--sp-8);
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: var(--sp-12);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .site-footer__grid {
+    /* Cada columna mide lo que mide su contenido y el sobrante se reparte
+       en partes iguales entre las cuatro. Con tracks de 1fr todas medían lo
+       mismo pero su contenido no, y quedaban huecos muy desparejos —sobre
+       todo entre EMPRESA y CONTACTO, que son las de texto más corto. */
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-between;
+    column-gap: var(--sp-12);
+  }
+}
+
+.site-footer__brand img {
+  height: 30px;
+  width: 159px;
+  margin-bottom: var(--sp-4);
+}
+
+.site-footer__tagline {
+  max-width: 32ch;   /* sin esto la columna de marca se estira y desarma el reparto */
+  color: var(--c-text-invert);
+  opacity: 0.75;
+  max-width: 32ch;
+}
+
+.site-footer__social {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+
+.site-footer__social a {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(234, 242, 248, 0.2);
+  border-radius: 50%;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.site-footer__social a:hover {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+}
+
+.site-footer__social svg {
+  width: 18px; height: 18px;
+  fill: var(--c-text-invert);
+}
+
+.site-footer__heading {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-text-invert);
+  opacity: 0.6;
+  margin-bottom: var(--sp-4);
+}
+
+.site-footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.site-footer__list a,
+.site-footer__list span {
+  color: var(--c-text-invert);
+  opacity: 0.85;
+  transition: opacity var(--transition);
+}
+
+.site-footer__list a:hover { opacity: 1; color: var(--c-accent); }
+
+.site-footer__bottom {
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-8);
+  border-top: 1px solid rgba(234, 242, 248, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  font-size: var(--fs-small);
+  color: var(--c-text-invert);
+  opacity: 0.6;
+}
+
+@media (min-width: 700px) {
+  .site-footer__bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.site-footer__legal {
+  display: flex;
+  gap: var(--sp-6);
+}
+
+.site-footer__legal a:hover { opacity: 1; color: var(--c-accent); }
+
+/* ============ Botón flotante de WhatsApp ============ */
+
+.whatsapp-float {
+  position: fixed;
+  right: var(--sp-6);
+  bottom: var(--sp-6);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--c-whatsapp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 800;
+  opacity: 0;
+  transform: scale(0.8);
+  /* Escondido también para el mouse y el dedo: desde el 27/09 se oculta
+     sobre Contacto y el pie, y un botón invisible pero tocable se comía los
+     toques a los enlaces de abajo. visibility espera a que termine el
+     desvanecido para no cortarlo de golpe. */
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 300ms ease, transform 300ms ease, background var(--transition), visibility 0s linear 300ms;
+}
+
+.whatsapp-float.is-visible {
+  opacity: 1;
+  transform: scale(1);
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .whatsapp-float:hover {
+    background: #1EBE57;
+  }
+}
+
+.whatsapp-float svg {
+  width: 28px; height: 28px;
+  fill: #fff;
+}
+
+/* En el celular el botón es solo el círculo con el ícono: la pantalla es
+   angosta y una píldora con texto tapa media línea de lo que se está
+   leyendo. En pantalla grande sobra lugar y el texto ayuda, así que ahí
+   sí se despliega. */
+.whatsapp-float__texto { display: none; }
+
+@media (min-width: 900px) {
+  .whatsapp-float {
+    width: auto;
+    height: auto;
+    min-height: 56px;
+    padding-inline: var(--sp-4) var(--sp-5);
+    gap: var(--sp-2);
+    border-radius: 999px;
+  }
+
+  .whatsapp-float__texto {
+    display: inline;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float { transition: opacity 1ms; }
+}
+
+/* ============ Proceso (pasos numerados) ============ */
+
+.process-grid {
+  display: grid;
+  gap: var(--sp-8);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .process-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-6);
+  }
+}
+
+.process-step__number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--c-accent-ink);
+  line-height: 1;
+  margin-bottom: var(--sp-3);
+}
+
+.process-step h3 { margin-bottom: var(--sp-2); }
+.process-step p { color: var(--c-text-muted); }
+
+/* ============ Lista con check ============ */
+
+.check-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.check-list li {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+}
+
+.check-list svg {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--c-success);
+  stroke: var(--c-success);
+  fill: none;
+  stroke-width: 2.5;
+}
+
+/* ============ FAQ (details/summary) ============ */
+
+.faq-item {
+  border-bottom: 1px solid var(--c-border);
+}
+
+.faq-item summary {
+  padding: var(--sp-6) 0;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  color: var(--c-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: '+';
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--c-accent-ink);
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  padding-bottom: var(--sp-6);
+  color: var(--c-text-muted);
+}
+
+/* ============ Trust bar (Home) ============
+   Tres datos duros. El número manda, la etiqueta explica.
+   Nada de adjetivos: si no es verificable, no va acá. */
+
+.trust-bar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-8);
+  text-align: center;
+}
+
+@media (min-width: 760px) {
+  .trust-bar {
+    /* auto-fit: sirve igual con 2 o con 3 ítems, sin tocar el CSS */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--sp-4);
+    align-items: stretch;   /* mismas alturas => divisorias parejas */
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .trust-bar__item + .trust-bar__item {
+    border-left: 1px solid var(--c-border);
+  }
+}
+
+.trust-bar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--sp-2);
+  padding-inline: var(--sp-6);
+}
+
+.trust-bar__value {
+  font-size: clamp(2.5rem, 4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--c-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.trust-bar__label {
+  max-width: 26ch;
+  margin-inline: auto;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--c-text-muted);
+  text-wrap: balance;
+}
+
+/* ============================================================
+   Testimonios — citas reales de clientes.
+   Solo texto verificable: nombre del cliente y proyecto.
+   ============================================================ */
+
+.testimonios-grid {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .testimonios-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.testimonio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+}
+
+.testimonio__cita {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: var(--lh-body);
+  color: var(--c-text);
+}
+
+.testimonio__cita::before { content: '\201C'; }
+.testimonio__cita::after  { content: '\201D'; }
+
+.testimonio__pie {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-top: auto;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--c-border);
+  flex-wrap: wrap;
+}
+
+.testimonio__cliente {
+  font-weight: 600;
+  color: var(--c-primary);
+  font-size: var(--fs-small);
+}
+
+.testimonio__rubro {
+  font-size: 0.8125rem;
+  color: var(--c-text-muted);
+}

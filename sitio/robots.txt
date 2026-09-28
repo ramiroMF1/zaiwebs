@@ -1,0 +1,19 @@
+# Zaiwebs — https://zaiwebs.com
+
+User-agent: *
+Allow: /
+
+# Carpetas de trabajo: no son parte del sitio y no deberían subirse, pero si
+# alguna se sube por error esto evita que aparezca en los buscadores.
+# El .htaccess además las bloquea del lado del servidor.
+Disallow: /_capturas/
+Disallow: /_originales-wp/
+Disallow: /_to_delete/
+Disallow: /_absorbidas/
+
+# La página de agradecimiento y la de error llevan su propio noindex en el
+# HTML, que es lo que de verdad las saca del índice. Acá no se bloquean a
+# propósito: si se bloquearan, el buscador no podría entrar a leer ese
+# noindex y podría listarlas igual, solo que sin descripción.
+
+Sitemap: https://zaiwebs.com/sitemap.xml

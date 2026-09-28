@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ═══════════════ GUÍA DE FOTOS ═══════════════
+     Para los clientes: se manda junto con el pedido de material y está
+     enlazada desde las propuestas. Entra en UNA hoja A4 al imprimir o guardar
+     como PDF: si se le suma algo, sacar otra cosa o se parte en dos hojas.
+
+     Lleva noindex porque es material de trabajo, no una página para que la
+     encuentren: no tiene menú ni va al sitemap. Se escribió pensando en
+     empresas industriales (planta, máquinas, producto), pero sirve igual para
+     cualquier rubro. -->
+
+<meta name="robots" content="noindex">
+<title>Guía para sacar fotos con el celular | Zaiwebs</title>
+<meta name="description" content="Cómo sacar con el celular fotos que sirvan para un sitio web: luz, encuadre, qué fotografiar y cómo mandarlas.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    color-scheme: light;
+    --c-primary:#0A2540; --c-accent:#00B8D4; --c-accent-ink:#007A8C; --c-accent-soft:#E6F8FB;
+    --c-bg:#FFFFFF; --c-bg-alt:#F2F6F9; --c-text:#142838; --c-text-muted:#5A6B7D; --c-border:#DFE7EE;
+    --c-cream:#FFFAF1; --c-no:#B42318; --c-no-soft:#FDECEA;
+    --font-sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--c-bg-alt); color:var(--c-text); font-family:var(--font-sans);
+         font-size:1rem; line-height:1.55; -webkit-font-smoothing:antialiased; padding-inline:clamp(.75rem,3vw,2rem); padding-block:clamp(1rem,4vw,2.5rem); }
+  h1, h2 { color:var(--c-primary); margin:0; line-height:1.15; text-wrap:balance; }
+  p { margin:0; }
+  a { color:var(--c-accent-ink); }
+  button:focus-visible { outline:2px solid var(--c-accent-ink); outline-offset:3px; }
+
+  .hoja { max-width:210mm; margin:0 auto; background:var(--c-bg); border:1px solid var(--c-border); border-radius:14px;
+          box-shadow:0 12px 32px rgba(10,37,64,.10); padding:clamp(1.2rem,4vw,2.2rem); display:flex; flex-direction:column; gap:1.1rem; }
+
+  .cabeza { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:.8rem 1.5rem;
+            background:var(--c-primary); color:var(--c-cream); border-radius:10px; padding:1.1rem 1.3rem; }
+  .cabeza h1 { color:var(--c-cream); font-size:clamp(1.45rem,3.6vw,1.9rem); letter-spacing:-.025em; }
+  .cabeza p { color:#C9D8E4; font-size:.95rem; max-width:34rem; margin-top:.35rem; }
+  .cabeza img { height:20px; width:auto; display:block; margin-top:.3rem; }
+
+  .grilla { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem 1.6rem; }
+  .caja { display:flex; flex-direction:column; gap:.45rem; }
+  h2 { font-size:1rem; font-weight:700; display:flex; align-items:center; gap:.5rem; }
+  h2 .n { width:1.5rem; height:1.5rem; border-radius:50%; background:var(--c-accent); color:var(--c-primary);
+          display:grid; place-content:center; font-size:.8rem; flex:none; }
+  ul { margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:.3rem; font-size:.93rem; }
+  li::marker { color:var(--c-accent-ink); }
+  li strong { color:var(--c-primary); font-weight:600; }
+
+  .tomas { list-style:none; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.4rem; }
+  .tomas li { background:var(--c-bg-alt); border-radius:8px; padding:.45rem .6rem; font-size:.88rem; line-height:1.35; }
+  .tomas b { display:block; color:var(--c-primary); font-weight:600; font-size:.9rem; }
+
+  .no { background:var(--c-no-soft); border-radius:10px; padding:.8rem 1rem; }
+  .no h2 { color:var(--c-no); }
+  .no h2 .n { background:var(--c-no); color:#fff; }
+
+  .envio { border:2px solid var(--c-accent); border-radius:10px; padding:.9rem 1.1rem; display:flex; flex-direction:column; gap:.4rem; }
+  .envio .clave { font-weight:700; color:var(--c-primary); font-size:1.02rem; }
+
+  .pie { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:.6rem; font-size:.85rem; color:var(--c-text-muted);
+         border-top:1px solid var(--c-border); padding-top:.8rem; }
+  .imprimir { font:inherit; font-weight:600; font-size:.9rem; color:var(--c-primary); background:var(--c-accent); border:0; border-radius:8px;
+              padding:.55rem 1rem; cursor:pointer; }
+
+  @media (max-width:640px) {
+    .grilla, .tomas { grid-template-columns:1fr; }
+  }
+  /* Una sola hoja A4. Se achica la letra y se sacan sombras y fondo gris. */
+  @page { size:A4; margin:10mm; }
+  @media print {
+    body { background:#fff; padding:0; font-size:9pt; line-height:1.4; }
+    .hoja { border:0; box-shadow:none; padding:0; gap:2.6mm; max-width:none; }
+    .cabeza, .tomas li, .no, h2 .n { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .cabeza { padding:3mm 5mm; }
+    .cabeza h1 { font-size:15pt; }
+    .cabeza p { font-size:8.8pt; margin-top:1mm; }
+    .grilla { gap:2.6mm 6mm; }
+    h2 { font-size:9.8pt; }
+    ul { font-size:8.8pt; gap:.6mm; }
+    /* Las ocho tomas en cuatro columnas: en dos ocupaban un tercio de la hoja. */
+    .tomas { grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.4mm; }
+    .tomas li { font-size:8.2pt; padding:1.2mm 1.8mm; }
+    .tomas b { font-size:8.6pt; }
+    .no, .envio { padding:2.4mm 3.5mm; }
+    .envio .clave { font-size:9.4pt; }
+    .pie { padding-top:2mm; font-size:8pt; }
+    .imprimir { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<article class="hoja">
+
+  <header class="cabeza">
+    <div>
+      <h1>Cómo sacar fotos con el celular que sirvan para tu sitio</h1>
+      <p>No hace falta un fotógrafo. Con un celular de los últimos años, buena luz y estas reglas, alcanza. Leela entera antes de empezar: son cinco minutos.</p>
+    </div>
+    <img src="https://zaiwebs.com/assets/img/logo-zaiwebs-quieto.svg" alt="Zaiwebs" width="106" height="20">
+  </header>
+
+  <div class="grilla">
+
+    <section class="caja">
+      <h2><span class="n">1</span>Antes de disparar</h2>
+      <ul>
+        <li><strong>Limpiá la lente</strong> con la remera. Es la causa número uno de fotos lechosas, sobre todo en planta.</li>
+        <li><strong>Celular en horizontal.</strong> Los sitios usan fotos apaisadas; una vertical se recorta y pierde la mitad.</li>
+        <li><strong>Sin zoom.</strong> Si querés algo más grande, acercate caminando.</li>
+        <li><strong>Sin filtros ni retoques</strong>, y con la cámara normal del celular, no desde WhatsApp ni Instagram.</li>
+      </ul>
+    </section>
+
+    <section class="caja">
+      <h2><span class="n">2</span>La luz</h2>
+      <ul>
+        <li><strong>La luz tiene que estar detrás tuyo</strong>, no detrás de lo que fotografiás. Con una ventana o un portón de fondo, todo sale oscuro.</li>
+        <li><strong>Afuera, mejor un día nublado</strong> o temprano a la mañana. El sol del mediodía arma sombras duras.</li>
+        <li><strong>En planta, prendé todas las luces</strong> y abrí los portones. Flash apagado.</li>
+        <li>Si la foto sale movida, apoyá los codos o el celular en algo firme.</li>
+      </ul>
+    </section>
+
+    <section class="caja" style="grid-column:1 / -1">
+      <h2><span class="n">3</span>Qué fotografiar · de cada cosa, tres fotos</h2>
+      <ul class="tomas">
+        <li><b>El frente de la empresa</b>Con el cartel a la vista, desde la vereda de enfrente.</li>
+        <li><b>La planta entera</b>Desde lo más alto que haya: un entrepiso, una escalera, una esquina.</li>
+        <li><b>Máquinas trabajando</b>Mejor en marcha que paradas. Con alguien operándolas, de espaldas o de perfil.</li>
+        <li><b>El proceso, paso a paso</b>Tres o cuatro fotos, de la materia prima al producto terminado.</li>
+        <li><b>Cada producto, solo</b>Sobre una pared o cartulina lisa: de frente, de perfil y un detalle.</li>
+        <li><b>Producto en uso</b>Instalado o funcionando en un cliente, si hay permiso.</li>
+        <li><b>El equipo</b>Solo con quienes estén de acuerdo en aparecer.</li>
+        <li><b>Certificaciones y obras</b>Los certificados vigentes y los trabajos que puedan mostrarse.</li>
+      </ul>
+    </section>
+
+    <section class="caja">
+      <h2><span class="n">4</span>El encuadre</h2>
+      <ul>
+        <li><strong>Dejá aire alrededor.</strong> El sitio va a recortar la foto para celular y para computadora: si lo importante toca el borde, se corta.</li>
+        <li><strong>Horizonte derecho.</strong> Activá la cuadrícula de la cámara en los ajustes.</li>
+        <li><strong>Productos a su altura</strong>, no desde arriba.</li>
+        <li><strong>Ordená antes:</strong> sacá cables sueltos, trapos, cajas y bidones que no son parte de la foto.</li>
+      </ul>
+    </section>
+
+    <section class="caja no">
+      <h2><span class="n">!</span>Lo que no puede aparecer</h2>
+      <ul>
+        <li><strong>Gente sin casco, anteojos o calzado de seguridad</strong> donde corresponde. En un sitio industrial es lo primero que ve un comprador serio.</li>
+        <li>Caras de personas que no dieron permiso.</li>
+        <li>Pantallas, pizarrones o papeles con precios, clientes o datos.</li>
+        <li>Logos de clientes o de marcas sin autorización.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <section class="envio">
+    <h2><span class="n">5</span>Cómo mandarlas</h2>
+    <p class="clave">Nunca por WhatsApp: las achica y quedan inservibles para un sitio.</p>
+    <ul>
+      <li>Subilas a la <strong>carpeta compartida</strong> que te mandamos, o por correo como <strong>archivo adjunto</strong>.</li>
+      <li>Tal como salen del celular: sin recortar, sin comprimir y sin pasarlas por otra aplicación. Si el iPhone las guarda en HEIC, está bien: las convertimos nosotros.</li>
+      <li>Mandá de más. Con <strong>30 a 50 fotos</strong> elegimos las mejores 15 o 20.</li>
+    </ul>
+  </section>
+
+  <footer class="pie">
+    <span>Zaiwebs · zaiwebs.com · contacto@zaiwebs.com · ¿Dudas? Mandanos una foto de prueba y te decimos si sirve.</span>
+    <button type="button" class="imprimir" onclick="window.print()">Imprimir o guardar PDF</button>
+  </footer>
+
+</article>
+
+</body>
+</html>

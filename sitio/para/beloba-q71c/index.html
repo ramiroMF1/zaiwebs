@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Muestra por empresa (ver .claude/skills/muestra/SKILL.md). Noindex y fuera
+     del sitemap. Umami registra cada visita a /para/... y así se sabe cuándo la
+     abrió la empresa: no la vuelvas a abrir después de mandar el enlace. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Una muestra para Beloba | Zaiwebs</title>
+<meta name="description" content="Cómo podría verse el catálogo de faroles de Beloba como página, lista para ver desde el celular.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Una muestra para Beloba">
+<meta property="og:description" content="Su catálogo de faroles como página, lista para ver desde el celular.">
+<meta property="og:image" content="https://zaiwebs.com/para/beloba-q71c/img/faroles-pilares.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="https://zaiwebs.com/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="08f5e024-0cc7-4397-805f-6e24a1f03018"></script>
+
+<style>
+  /* Tokens de Zaiwebs copiados (no enlazados), como en las propuestas: la
+     muestra se tiene que ver igual aunque cambie el CSS del sitio.
+     --m-* son los colores del catálogo de la empresa: se cambian por muestra. */
+  :root {
+    color-scheme: light;
+    --c-primary:#0A2540; --c-accent:#00B8D4; --c-accent-ink:#007A8C; --c-accent-soft:#E6F8FB;
+    --c-bg:#FFFFFF; --c-bg-alt:#F2F6F9; --c-text:#142838; --c-text-muted:#5A6B7D;
+    --c-border:#DFE7EE; --c-cream:#FFFAF1; --c-whatsapp:#25D366;
+    --font-sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --radius:10px; --radius-lg:16px;
+    --shadow-md:0 4px 16px rgba(10,37,64,.08);
+    --shadow-lg:0 18px 44px rgba(10,37,64,.16);
+
+    --m-ink:#1D2023; --m-ink-2:#34393E; --m-paper:#F6F2EA; --m-card:#FFFFFF;
+    --m-line:#E4DDD0; --m-muted:#6A6660; --m-glow:#E3A13A; --m-glow-ink:#8A5A12;
+    --font-marca:'Fraunces', Georgia, 'Times New Roman', serif;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--c-bg-alt); color:var(--c-text); font-family:var(--font-sans);
+         font-size:1.0625rem; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  img { display:block; max-width:100%; }
+  h1, h2 { color:var(--c-primary); margin:0; line-height:1.15; text-wrap:balance; letter-spacing:-.02em; }
+  h1 { font-size:clamp(1.75rem, 5.2vw, 2.6rem); font-weight:700; }
+  h2 { font-size:clamp(1.25rem, 3.4vw, 1.6rem); font-weight:700; }
+  p { margin:0; }
+  .wrap { width:100%; max-width:1040px; margin:0 auto; padding:0 16px; }
+
+  /* Barra de Zaiwebs */
+  .zw { background:var(--c-primary); color:#EAF2F8; }
+  .zw .wrap { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; }
+  .zw img { height:22px; width:auto; }
+  .zw span { font-size:.8125rem; color:#B9CBDA; text-align:right; }
+
+  /* Presentación */
+  .intro { padding:36px 0 8px; }
+  .eyebrow { font-size:.8125rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--c-accent-ink); margin-bottom:10px; }
+  .intro h1 { max-width:22ch; }
+  .intro p.lead { margin-top:14px; max-width:60ch; color:var(--c-text-muted); font-size:1.0625rem; }
+  @media (min-width:880px) {
+    .intro { text-align:center; padding-top:52px; }
+    .intro h1, .intro p.lead { margin-left:auto; margin-right:auto; }
+  }
+
+  /* Antes y después */
+  .cmp { display:grid; grid-template-columns:minmax(0, 1fr); gap:36px; padding-top:28px; padding-bottom:12px; align-items:start; }
+  .cmp > div { min-width:0; }
+  @media (min-width:880px) { .cmp { grid-template-columns:minmax(0, 330px) minmax(0, 420px); justify-content:center; gap:56px; } }
+  .cmp h2 { margin-bottom:6px; }
+  .tag { display:inline-block; font-size:.75rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+         padding:3px 9px; border-radius:999px; margin-bottom:10px; }
+  .tag--hoy { background:#F3E3E1; color:#8C2A1E; }
+  .tag--ya { background:var(--c-accent-soft); color:var(--c-accent-ink); }
+  .hint { font-size:.9375rem; color:var(--c-text-muted); margin-bottom:14px; }
+
+  /* Hoy: el visor de Drive, dibujado */
+  .drive { background:#1F1F1F; border-radius:14px; overflow:hidden; box-shadow:var(--shadow-md); max-width:250px; }
+  @media (min-width:880px) { .drive { max-width:330px; } }
+  .drive__bar { display:flex; align-items:center; gap:10px; padding:12px 14px 6px; color:#E8EAED; font-size:.875rem; }
+  .drive__pdf { background:#EA4335; color:#fff; font-size:.625rem; font-weight:700; padding:3px 4px; border-radius:3px; }
+  .drive__tools { margin:6px 12px 0; background:#2D2D2D; border-radius:999px; color:#BDC1C6; font-size:.75rem; padding:6px 14px; display:flex; justify-content:space-between; }
+  .drive__view { padding:18px 22px 22px; display:grid; place-items:center; }
+  .drive__sheet { width:100%; aspect-ratio:3 / 4.2; background:linear-gradient(180deg, #5E8FC4 0%, #9CC2E6 58%, #6C8E5A 58.5%, #8BA66F 70%, #2E7FC9 70.5%, #2E7FC9 100%);
+                  border-radius:2px; position:relative; overflow:hidden; }
+  .drive__sheet b { position:absolute; left:0; right:0; top:11%; text-align:center; color:#fff; font-size:.62rem; letter-spacing:.08em; }
+  .drive__sheet i { position:absolute; left:10%; top:34%; color:#DDEBF7; font-style:normal; font-weight:700; font-size:1.5rem; }
+  .drive__sheet s { position:absolute; left:8%; right:8%; bottom:6%; height:18%;
+                    background:repeating-linear-gradient(180deg, rgba(255,255,255,.75) 0 2px, transparent 2px 5px); text-decoration:none; }
+  .drive__note { margin-top:10px; color:#9AA0A6; font-size:.75rem; text-align:center; }
+  .hoy-list { list-style:none; margin:16px 0 0; padding:0; display:grid; gap:10px; max-width:330px; }
+  .hoy-list li { position:relative; padding-left:22px; font-size:.9375rem; color:var(--c-text); }
+  .hoy-list li::before { content:""; position:absolute; left:4px; top:.6em; width:8px; height:8px; border-radius:50%; background:#C2503F; }
+
+  /* Así podría ser: el marco y el catálogo */
+  .frame { background:var(--m-card); border-radius:18px; overflow:hidden; box-shadow:var(--shadow-lg); border:1px solid #D9DEE3; max-width:420px; margin:0 auto; }
+  .frame__bar { display:flex; align-items:center; gap:10px; padding:10px 14px; background:#EEF1F4; border-bottom:1px solid #D9DEE3; }
+  .frame__dots { display:flex; gap:5px; }
+  .frame__dots i { width:9px; height:9px; border-radius:50%; background:#C9D0D7; }
+  .frame__url { flex:1; background:#fff; border-radius:999px; font-size:.75rem; color:#5A6B7D; padding:4px 12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  .shop { position:relative; background:var(--m-paper); color:var(--m-ink); font-size:.9375rem; }
+  .shop__top { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:var(--m-ink); color:#F4EFE6; }
+  .shop__brand { font-family:var(--font-marca); font-weight:600; font-size:1.375rem; letter-spacing:.01em; line-height:1; }
+  .shop__brand small { display:block; font-family:var(--font-sans); font-weight:500; font-size:.6875rem; letter-spacing:.14em; text-transform:uppercase; color:var(--m-glow); margin-top:5px; }
+  .shop__menu { width:22px; height:14px; border-top:2px solid #F4EFE6; border-bottom:2px solid #F4EFE6; position:relative; }
+  .shop__menu::after { content:""; position:absolute; left:0; right:0; top:4px; border-top:2px solid #F4EFE6; }
+
+  .shop__hero { background:var(--m-ink); }
+  .shop__hero img { width:100%; height:auto; aspect-ratio:4 / 3.3; object-fit:cover; object-position:50% 72%; }
+  .shop__hero-text { padding:16px 16px 20px; color:#FBF7F0; }
+  .shop__kicker { font-size:.6875rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--m-glow); }
+  .shop__hero-text h3 { font-family:var(--font-marca); font-weight:600; font-size:1.625rem; line-height:1.12; margin:6px 0 6px; color:#FBF7F0; }
+  .shop__hero-text p { font-size:.875rem; color:#E7DFD2; }
+  .shop__cta { display:inline-block; margin-top:12px; background:var(--m-glow); color:#1D1406; font-weight:600; font-size:.875rem; padding:9px 16px; border-radius:999px; border:0; font-family:inherit; cursor:pointer; }
+
+  .shop__search { padding:16px 16px 4px; }
+  .shop__search label { display:block; }
+  .shop__search input { width:100%; font:inherit; font-size:1rem; padding:11px 14px 11px 38px; border-radius:999px; border:1px solid var(--m-line); background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236A6660' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat 14px 50%; color:var(--m-ink); }
+  .shop__search input:focus { outline:2px solid var(--m-glow); outline-offset:1px; }
+
+  .shop__chips { display:flex; gap:8px; overflow-x:auto; padding:12px 16px 4px; scrollbar-width:none; }
+  .shop__chips::-webkit-scrollbar { display:none; }
+  .chip { flex:none; font:inherit; font-size:.8125rem; font-weight:500; padding:7px 13px; border-radius:999px; border:1px solid var(--m-line); background:#fff; color:var(--m-ink); cursor:pointer; }
+  .chip[aria-pressed="true"] { background:var(--m-ink); border-color:var(--m-ink); color:#F4EFE6; }
+  .chip:focus-visible { outline:2px solid var(--m-glow); outline-offset:2px; }
+
+  .shop__count { padding:10px 16px 0; font-size:.75rem; color:var(--m-muted); }
+  .shop__grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:10px 16px 18px; }
+  .card { background:var(--m-card); border-radius:12px; overflow:hidden; border:1px solid var(--m-line); display:flex; flex-direction:column; }
+  .card[hidden] { display:none; }
+  .card__img { aspect-ratio:1 / 1.12; overflow:hidden; background:#E9E3D8; }
+  .card__img img { width:100%; height:100%; object-fit:cover; }  .card__body { padding:10px 10px 12px; display:flex; flex-direction:column; gap:3px; flex:1; }
+  .card__cat { font-size:.6875rem; letter-spacing:.08em; text-transform:uppercase; color:var(--m-glow-ink); font-weight:600; }
+  .card__name { font-weight:600; font-size:.875rem; line-height:1.3; color:var(--m-ink); }
+  .card__meta { font-size:.75rem; color:var(--m-muted); }
+  .card__btn { margin-top:auto; padding-top:8px; }
+  .card__btn button { width:100%; font:inherit; font-size:.8125rem; font-weight:600; padding:8px 6px; border-radius:8px; border:1px solid var(--m-ink); background:#fff; color:var(--m-ink); cursor:pointer; }
+  .card__btn button:hover { background:var(--m-ink); color:#F4EFE6; }
+  .shop__empty { margin:4px 16px 18px; padding:16px; border:1px dashed #CBBFA9; border-radius:12px; font-size:.875rem; color:var(--m-muted); background:#FBF8F2; }
+
+  .shop__band { background:var(--m-ink); color:#EDE6DA; }
+  .shop__band img { width:100%; height:auto; aspect-ratio:16 / 9; object-fit:cover; object-position:50% 22%; }
+  .shop__band div { padding:16px 16px 18px; }
+  .shop__band h4 { font-family:var(--font-marca); font-weight:600; font-size:1.125rem; margin:0 0 6px; color:#FBF7F0; }
+  .shop__band p { font-size:.8125rem; line-height:1.5; }
+  .shop__foot { padding:14px 16px 64px; font-size:.75rem; color:var(--m-muted); text-align:center; }
+  .shop__wa { position:absolute; right:14px; bottom:14px; width:48px; height:48px; border-radius:50%; background:var(--c-whatsapp);
+              display:grid; place-items:center; box-shadow:0 6px 16px rgba(0,0,0,.2); }
+  .shop__toast { position:absolute; left:12px; right:72px; bottom:14px; background:var(--m-ink); color:#F4EFE6; font-size:.8125rem; line-height:1.45;
+                 padding:10px 12px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,.25); opacity:0; transform:translateY(8px);
+                 transition:opacity .2s, transform .2s; pointer-events:none; }
+  .shop__toast.is-on { opacity:1; transform:none; }
+  .shop__toast b { color:var(--m-glow); font-weight:600; }
+  .frame__note { max-width:420px; margin:10px auto 0; font-size:.8125rem; color:var(--c-text-muted); text-align:center; }
+
+  /* Qué cambia */
+  .cambia { padding:44px 0 8px; }
+  .cambia h2 { text-align:center; margin-bottom:20px; }
+  .cambia__grid { display:grid; gap:14px; }
+  @media (min-width:760px) { .cambia__grid { grid-template-columns:repeat(3, 1fr); } }
+  .punto { background:#fff; border:1px solid var(--c-border); border-radius:var(--radius-lg); padding:20px; }
+  .punto h3 { margin:0 0 6px; font-size:1.0625rem; color:var(--c-primary); }
+  .punto p { color:var(--c-text-muted); font-size:.9375rem; }
+  .punto__n { display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--c-accent-soft); color:var(--c-accent-ink); font-weight:700; font-size:.875rem; margin-bottom:10px; }
+
+  /* Cierre */
+  .cta { margin:44px 0 0; background:var(--c-primary); color:#EAF2F8; }
+  .cta .wrap { padding-top:40px; padding-bottom:40px; text-align:center; }
+  .cta h2 { color:#fff; }
+  .cta p { margin:12px auto 0; max-width:52ch; color:#C9D8E5; }
+  .btn-wa { display:inline-flex; align-items:center; gap:10px; margin-top:22px; background:var(--c-whatsapp); color:#08361A; font-weight:700; text-decoration:none;
+            padding:14px 22px; border-radius:999px; font-size:1rem; }
+  .btn-wa:focus-visible { outline:3px solid #fff; outline-offset:3px; }
+  .cta small { display:block; margin-top:14px; color:#9FB4C7; font-size:.875rem; }
+
+  .pie { padding:22px 0 30px; font-size:.8125rem; color:var(--c-text-muted); }
+  .pie p { max-width:70ch; }
+  .pie a { color:var(--c-accent-ink); }
+
+  @media (prefers-reduced-motion:reduce) { .shop__toast { transition:none; } }
+</style>
+</head>
+<body>
+
+<div class="zw">
+  <div class="wrap">
+    <a href="https://zaiwebs.com/" data-umami-event="muestra-logo" data-umami-event-empresa="beloba"><img src="/assets/img/logo-zaiwebs-quieto.svg" alt="Zaiwebs" width="117" height="22"></a>
+    <span>Muestra hecha para Beloba</span>
+  </div>
+</div>
+
+<main>
+  <section class="intro">
+    <div class="wrap">
+      <p class="eyebrow">Una muestra para Beloba</p>
+      <h1>Su catálogo de faroles, listo para ver desde el celular</h1>
+      <p class="lead">Hoy, quien toca el enlace de su perfil de Instagram llega a un PDF de 66 páginas en Google Drive. Armamos esta muestra con sus propias fotos para que vean cómo podría ser ese mismo catálogo como página.</p>
+    </div>
+  </section>
+
+  <section class="wrap cmp" aria-label="Cómo es hoy y cómo podría ser">
+    <div>
+      <span class="tag tag--hoy">Hoy</span>
+      <h2>Un PDF en Drive</h2>
+      <p class="hint">Lo que se abre al tocar el enlace de la bio.</p>
+      <div class="drive" aria-hidden="true">
+        <div class="drive__bar"><span class="drive__pdf">PDF</span> Catálogo 2024.pdf</div>
+        <div class="drive__tools"><span>Página 1 de 66</span><span>− 100% +</span></div>
+        <div class="drive__view">
+          <div class="drive__sheet"><b>CATÁLOGO DE PRODUCTOS</b><i>2024</i><s></s></div>
+          <p class="drive__note">Para leerlo en el celular hay que agrandar con los dedos</p>
+        </div>
+      </div>
+      <ul class="hoy-list">
+        <li>Para llegar a las columnas o a las veletas hay que pasar página por página.</li>
+        <li>En el teléfono, la letra del catálogo se lee recién agrandando.</li>
+        <li>Para consultar por un farol, hay que volver a Instagram y explicar cuál era.</li>
+      </ul>
+    </div>
+
+    <div>
+      <span class="tag tag--ya">Así podría ser</span>
+      <h2>Un catálogo que se recorre</h2>
+      <p class="hint">Se puede usar: tocá las categorías, buscá un modelo o consultá por uno.</p>
+
+      <div class="frame">
+        <div class="frame__bar"><span class="frame__dots"><i></i><i></i><i></i></span><span class="frame__url">Catálogo de Beloba · muestra</span></div>
+        <div class="shop" id="shop">
+          <header class="shop__top">
+            <span class="shop__brand">Beloba<small>Faroles de aluminio</small></span>
+            <span class="shop__menu" aria-hidden="true"></span>
+          </header>
+
+          <div class="shop__hero">
+            <img src="img/faroles-pilares.jpg" alt="Dos faroles de pared de Beloba encendidos sobre los pilares de una entrada, al atardecer" width="480" height="640">
+            <div class="shop__hero-text">
+              <p class="shop__kicker">Somos fabricantes</p>
+              <h3>Iluminación exterior en aluminio</h3>
+              <p>Faroles, columnas y accesorios que fundimos y armamos en nuestra planta de Lobos.</p>
+              <button class="shop__cta" type="button" data-ir="faroles">Ver los faroles</button>
+            </div>
+          </div>
+
+          <div class="shop__search">
+            <label for="buscar" class="visually-hidden" style="position:absolute;left:-9999px">Buscar un modelo</label>
+            <input id="buscar" type="search" placeholder="Buscar: farol, columna, veleta…" autocomplete="off">
+          </div>
+
+          <div class="shop__chips" id="chips">
+            <button class="chip" type="button" data-cat="todo" aria-pressed="true">Todo</button>
+            <button class="chip" type="button" data-cat="faroles" aria-pressed="false">Faroles</button>
+            <button class="chip" type="button" data-cat="columnas" aria-pressed="false">Columnas</button>
+            <button class="chip" type="button" data-cat="jardin" aria-pressed="false">Juegos de jardín</button>
+            <button class="chip" type="button" data-cat="veletas" aria-pressed="false">Veletas</button>
+            <button class="chip" type="button" data-cat="bebederos" aria-pressed="false">Bebederos</button>
+            <button class="chip" type="button" data-cat="buzones" aria-pressed="false">Buzones</button>
+          </div>
+
+          <p class="shop__count" id="cuenta" aria-live="polite">5 modelos</p>
+
+          <div class="shop__grid" id="grilla">
+            <article class="card" data-cat="faroles" data-nombre="Farol de pared con brazo">
+              <div class="card__img"><img src="img/farol-pared-brazo.jpg" alt="Dos faroles de pared negros con brazo en voluta, a los lados de una puerta de madera" loading="lazy" width="480" height="640"></div>
+              <div class="card__body"><span class="card__cat">Faroles</span><span class="card__name">Farol de pared con brazo</span><span class="card__meta">Aluminio · para exterior</span>
+                <div class="card__btn"><button type="button">Consultar</button></div></div>
+            </article>
+            <article class="card" data-cat="faroles" data-nombre="Farol colonial de pared">
+              <div class="card__img"><img src="img/farol-colonial.jpg" alt="Farol colonial de seis caras con argolla, presentado sobre una pared de ladrillo" loading="lazy" width="480" height="640"></div>
+              <div class="card__body"><span class="card__cat">Faroles</span><span class="card__name">Farol colonial de pared</span><span class="card__meta">Aluminio · para exterior</span>
+                <div class="card__btn"><button type="button">Consultar</button></div></div>
+            </article>
+            <article class="card" data-cat="faroles" data-nombre="Farol rectangular de pared">
+              <div class="card__img"><img src="img/farol-rectangular.jpg" alt="Farol rectangular de vidrio con soporte de pared y argolla, sobre ladrillo" loading="lazy" width="584" height="640" style="object-position:40% 50%"></div>
+              <div class="card__body"><span class="card__cat">Faroles</span><span class="card__name">Farol rectangular de pared</span><span class="card__meta">Aluminio · para exterior</span>
+                <div class="card__btn"><button type="button">Consultar</button></div></div>
+            </article>
+            <article class="card" data-cat="columnas" data-nombre="Columna con farol">
+              <div class="card__img"><img src="img/columna-farol.jpg" alt="Columna negra con farol junto a una puerta de madera, con otro farol de pared" loading="lazy" width="480" height="640" style="object-position:70% 50%"></div>
+              <div class="card__body"><span class="card__cat">Columnas</span><span class="card__name">Columna con farol</span><span class="card__meta">Aluminio · para exterior</span>
+                <div class="card__btn"><button type="button">Consultar</button></div></div>
+            </article>
+            <article class="card" data-cat="columnas" data-nombre="Columna de dos faroles">
+              <div class="card__img"><img src="img/columna-doble.jpg" alt="Columna de dos brazos con faroles, contra el cielo" loading="lazy" width="360" height="640" style="object-position:30% 0; transform:scale(1.9); transform-origin:25% 8%"></div>
+              <div class="card__body"><span class="card__cat">Columnas</span><span class="card__name">Columna de dos faroles</span><span class="card__meta">Aluminio · para exterior</span>
+                <div class="card__btn"><button type="button">Consultar</button></div></div>
+            </article>
+          </div>
+          <p class="shop__empty" id="vacio" hidden></p>
+
+          <section class="shop__band">
+            <img src="img/fabrica.jpg" alt="Un operario de Beloba trabajando en la amoladora de la fábrica" loading="lazy" width="360" height="640">
+            <div>
+              <h4>Fabricamos nosotros</h4>
+              <p>Empresa familiar. Cada pieza se funde y se arma en nuestra planta de Lobos, y la enviamos a todo el país.</p>
+            </div>
+          </section>
+
+          <p class="shop__foot">Beloba · Lobos, Buenos Aires · Envíos a todo el país</p>
+          <span class="shop__wa" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></span>
+          <div class="shop__toast" id="aviso" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+      <p class="frame__note">Los nombres de los modelos son descriptivos: en el catálogo real van los suyos, con medidas y terminaciones.</p>
+    </div>
+  </section>
+
+  <section class="cambia">
+    <div class="wrap">
+      <h2>Qué cambia para ustedes</h2>
+      <div class="cambia__grid">
+        <div class="punto"><span class="punto__n">1</span><h3>Los modelos, ordenados por tipo</h3><p>Quien los sigue entra desde el celular y va directo a faroles, columnas o veletas, con las fotos grandes.</p></div>
+        <div class="punto"><span class="punto__n">2</span><h3>La consulta llega con el modelo</h3><p>Cada botón abre WhatsApp con el nombre del producto ya escrito. Menos idas y vueltas para saber de qué farol les hablan.</p></div>
+        <div class="punto"><span class="punto__n">3</span><h3>Lo actualizan ustedes</h3><p>Suman un modelo nuevo o cambian una foto sin depender de nadie. Si más adelante quieren mostrar precios o vender por la página, se agrega sobre lo mismo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>¿Lo charlamos?</h2>
+      <p>Si les gusta la idea, en una videollamada corta vemos qué modelos cargar primero y cómo les llegarían las consultas. Sin compromiso.</p>
+      <a class="btn-wa" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20soy%20de%20Beloba.%20Vi%20la%20muestra%20del%20cat%C3%A1logo%20y%20me%20gustar%C3%ADa%20charlarlo." target="_blank" rel="noopener" data-umami-event="muestra-wa" data-umami-event-empresa="beloba">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+        Escribirnos por WhatsApp
+      </a>
+      <small>O respondan el mensaje de Instagram, como les quede más cómodo.</small>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <div class="wrap">
+      <p>Muestra preparada por <a href="https://zaiwebs.com/">Zaiwebs</a> para Beloba. Las fotos son de su perfil de Instagram y se usan solo en esta página, que no aparece en los buscadores. Si prefieren que la borremos, nos avisan y la sacamos.</p>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var grilla = document.getElementById('grilla');
+  var tarjetas = Array.prototype.slice.call(grilla.querySelectorAll('.card'));
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var buscar = document.getElementById('buscar');
+  var cuenta = document.getElementById('cuenta');
+  var vacio = document.getElementById('vacio');
+  var aviso = document.getElementById('aviso');
+  var nombresCat = { jardin: 'juegos de jardín', veletas: 'veletas', bebederos: 'bebederos', buzones: 'buzones' };
+  var cat = 'todo', timer;
+
+  function sinAcentos(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+
+  function filtrar() {
+    var q = sinAcentos(buscar.value.trim());
+    var n = 0;
+    tarjetas.forEach(function (t) {
+      var ok = (cat === 'todo' || t.dataset.cat === cat) && (!q || sinAcentos(t.dataset.nombre + ' ' + t.dataset.cat).indexOf(q) !== -1);
+      t.hidden = !ok;
+      if (ok) n++;
+    });
+    cuenta.textContent = n === 1 ? '1 modelo' : n + ' modelos';
+    if (n === 0) {
+      vacio.textContent = nombresCat[cat]
+        ? 'Acá irían sus ' + nombresCat[cat] + '. En esta muestra cargamos solo faroles y columnas.'
+        : 'No encontramos ese modelo. En esta muestra cargamos solo faroles y columnas.';
+      vacio.hidden = false;
+    } else {
+      vacio.hidden = true;
+    }
+  }
+
+  function elegir(c) {
+    cat = c;
+    chips.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.cat === c ? 'true' : 'false'); });
+    filtrar();
+  }
+
+  chips.forEach(function (b) { b.addEventListener('click', function () { elegir(b.dataset.cat); }); });
+  buscar.addEventListener('input', filtrar);
+  document.querySelector('.shop__cta').addEventListener('click', function () {
+    elegir('faroles');
+    document.getElementById('chips').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  grilla.addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    var nombre = btn.closest('.card').dataset.nombre;
+    aviso.innerHTML = 'En su página, este botón abre WhatsApp con el mensaje: <b>«Hola, quiero consultar por el ' + nombre + '.»</b>';
+    aviso.classList.add('is-on');
+    clearTimeout(timer);
+    timer = setTimeout(function () { aviso.classList.remove('is-on'); }, 4200);
+    if (window.umami) window.umami.track('muestra-consultar-demo', { empresa: 'beloba' });
+  });
+})();
+</script>
+</body>
+</html>

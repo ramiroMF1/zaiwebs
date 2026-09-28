@@ -1,0 +1,78 @@
+/* ============================================================
+   ZAIWEBS — Design tokens
+   Editá solo este archivo para cambiar colores, tipografía y espaciado.
+   ============================================================ */
+
+:root {
+  /* Marca */
+  --c-primary:        #0A2540;  /* Azul profundo — headers, títulos, footer */
+  --c-primary-800:    #123253;
+  --c-primary-600:    #1B4570;
+  --c-accent:         #00B8D4;  /* Cian — SOLO como fondo (botones) o sobre fondo oscuro. 2.38:1 sobre blanco: no usar como color de texto sobre claro. */
+  --c-accent-ink:     #007A8C;  /* Cian oscuro — texto e íconos sobre fondos CLAROS. 5.05:1 sobre blanco */
+  --c-accent-hover:   #007A8C;  /* Antes #0096AD: con texto blanco daba 3.52:1 y no cumplía AA */
+  --c-accent-soft:    #E6F8FB;  /* Fondos de badges y destacados */
+
+  /* Neutros */
+  --c-bg:             #FFFFFF;
+  --c-bg-alt:         #E9EFF5;  /* Alternancia de secciones. Antes #F5F8FB: 1.07 contra blanco,
+                                    casi invisible. Este da 1.16 y el texto muted sigue en 4.73.
+                                    No oscurecer más allá de #E4EBF2: ahí el muted cae a 4.56 */
+  --c-bg-dark:        #071B2F;  /* Footer y bloques CTA oscuros */
+  --c-text:           #142838;
+  --c-text-muted:     #5A6B7D;
+  --c-text-invert:    #EAF2F8;
+  --c-border:         #DFE7EE;
+
+  /* Semánticos */
+  --c-success:        #16A34A;
+  --c-error:           #DC2626;
+
+  /* Logo — crema cálido, NO es blanco puro. No usar #FFFFFF. */
+  --c-logo-cream:      #FFFAF1;
+
+  /* WhatsApp */
+  --c-whatsapp:        #25D366;
+
+  /* Tipografía */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --fs-hero:   clamp(2.25rem, 5vw + 0.5rem, 4rem);
+  --fs-h2:     clamp(1.75rem, 3vw + 0.5rem, 2.75rem);
+  --fs-h3:     clamp(1.25rem, 1.5vw + 0.5rem, 1.5rem);
+  --fs-body:   clamp(1rem, 0.4vw + 0.9rem, 1.125rem);
+  --fs-small:  0.9375rem;
+  --lh-tight:  1.15;
+  --lh-body:   1.65;
+
+  /* Espaciado (escala 4px) */
+  --sp-1: 0.25rem;  --sp-2: 0.5rem;   --sp-3: 0.75rem;
+  --sp-4: 1rem;     --sp-5: 1.25rem;  --sp-6: 1.5rem;
+  --sp-8: 2rem;     --sp-10: 2.5rem;  --sp-12: 3rem;
+  --sp-16: 4rem;    --sp-24: 6rem;
+  /* --sp-5 y --sp-10 faltaban y se venían usando con valor de respaldo
+     (var(--sp-5, 1.25rem)). Funcionaba, pero el día que alguien escribía
+     var(--sp-5) sin respaldo la declaración entera se caía en silencio y la
+     propiedad volvía a cero. Definirlas cuesta dos líneas y saca la trampa. */
+  /* Bajado de clamp(4rem, 8vw, 7rem). Eran 112px arriba y 112 abajo: entre
+     dos secciones daba 224px seguidos de nada, y el cambio de tono caía
+     justo en el medio de ese vacío, así que se leía como una raya en vez de
+     como un cambio de sección. */
+  --section-y: clamp(3rem, 5.2vw, 5rem);
+
+  /* Layout */
+  --container: 1200px;
+  --container-narrow: 800px;
+  --radius:    10px;
+  --radius-lg: 16px;
+
+  /* Sombras — sutiles, corporativas */
+  --shadow-sm: 0 1px 3px rgba(10, 37, 64, 0.06);
+  --shadow-md: 0 4px 16px rgba(10, 37, 64, 0.08);
+  --shadow-lg: 0 12px 32px rgba(10, 37, 64, 0.12);
+
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Header */
+  --header-h: 76px;
+  --header-h-mobile: 64px;
+}

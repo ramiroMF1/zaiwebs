@@ -1,0 +1,522 @@
+/* ============================================================
+   ZAIWEBS — Landings por rubro
+   ------------------------------------------------------------
+   Se carga DESPUÉS de home.css en /inmobiliarias, /consultorios,
+   /industria y /tiendas-online. No redefine tokens: el tema oscuro, los
+   botones, las tarjetas de servicio, el chat de ejemplo, el formulario y
+   el FAQ vienen de home.css tal cual, así una landing se ve igual que la
+   home. Acá van solo las piezas que la home no tiene.
+
+   Todo cuelga de body.lp o de clases lp-*, para que nada de esto se filtre
+   a la home si algún día se cargara allá por error.
+
+   Una landing tiene UN objetivo: que la persona escriba por WhatsApp. Por
+   eso no hay menú de navegación y el botón de contacto está siempre a
+   mano (en la cabecera desde 640px, en la barra de abajo en celular).
+   ============================================================ */
+
+/* ============ Cabecera sin navegación ============
+   La cabecera de la home es una grilla de tres columnas para centrar el
+   menú. Sin menú, con esa grilla el botón quedaba en la columna del medio. */
+.lp .site-header__inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ============ Hero con demo al costado ============
+   A diferencia de la home, acá el hero va en dos columnas: el titular a la
+   izquierda y el producto funcionando a la derecha. En una landing que
+   llega desde un anuncio, ver el asistente respondiendo explica más rápido
+   que cualquier párrafo. */
+.lp-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.lp-hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: var(--sp-12);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .lp-hero__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--sp-16);
+  }
+}
+
+/* El rubro en una píldora arriba del titular: es lo primero que confirma
+   "esto es para mí" a quien llegó desde un anuncio. */
+.lp-rubro {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  max-width: none;
+  padding: 0.4rem 0.95rem;
+  margin-bottom: var(--sp-6);
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  background: rgba(16, 43, 65, 0.55);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--c-text);
+}
+
+.lp-rubro::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: 0 0 0 4px rgba(0, 184, 212, 0.18);
+  flex: none;
+}
+
+/* Más chico que el de la home (5rem): acá comparte el ancho con la demo.
+   Cada renglón del titular tiene que entrar en uno solo a 1200px, así que
+   las frases se escriben de 19 caracteres como máximo. */
+.lp-hero__title {
+  font-size: clamp(2.3rem, 4.6vw, 3.75rem);
+  line-height: 0.99;
+  letter-spacing: -0.035em;
+  color: #FFFFFF;
+  margin-bottom: var(--sp-6);
+}
+
+.lp-hero__lede {
+  font-size: 1.125rem;
+  color: var(--c-text-muted);
+  max-width: 50ch;
+}
+
+.lp-hero__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+
+@media (max-width: 520px) {
+  /* Los textos de estos botones son largos a propósito ("Quiero esto para
+     mi inmobiliaria"): en 375px no entran en una línea con nowrap. */
+  .lp-hero__acciones .btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.3;
+  }
+}
+
+/* Las tres objeciones que frenan el clic, respondidas debajo del botón */
+.lp-garantias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  margin-top: var(--sp-6);
+  font-size: 0.875rem;
+  color: var(--c-text-muted);
+}
+
+.lp-garantias li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.lp-garantias svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: var(--c-accent-ink);
+  stroke-width: 2.5;
+}
+
+.lp-hero .chat-demo {
+  justify-self: center;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+}
+
+@media (min-width: 960px) {
+  .lp-hero .chat-demo { justify-self: end; }
+}
+
+/* El ícono de WhatsApp de los botones es de relleno, no de trazo */
+.lp-icono-wa { fill: currentColor; }
+
+/* ============ Demo que se escribe sola ============
+   Sin JavaScript, o con "reducir movimiento", la conversación está entera
+   desde el principio. Con JavaScript (clase .lp-js, que pone un script en
+   el <head>) los mensajes arrancan ocultos y landing.js los va mostrando.
+
+   El rescate: si landing.js no llega a cargar, a los 7 segundos los mensajes
+   aparecen igual por CSS. Cuando el script sí arranca pone
+   data-anima="corriendo" y apaga el rescate.
+
+   Ocultos con opacity y no con display: siguen ocupando su lugar, así la
+   caja no crece mientras se escribe y el titular de al lado no salta. */
+@media (prefers-reduced-motion: no-preference) {
+  .lp-js [data-anima]:not([data-anima="listo"]) [data-paso] {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: lp-rescate 400ms ease 7s forwards;
+  }
+
+  /* [data-anima] repetido no es un error: iguala la especificidad de la
+     regla de arriba (que suma un :not). Con un solo atributo pesaba menos,
+     el rescate nunca se apagaba y a los 7 s pisaba la animación. */
+  .lp-js [data-anima][data-anima="corriendo"] [data-paso] { animation: none; }
+
+  .lp-js [data-anima] [data-paso].is-dicho {
+    opacity: 1;
+    transform: none;
+    transition: opacity 380ms ease, transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes lp-rescate { to { opacity: 1; transform: none; } }
+
+/* "Escribiendo…": se posiciona encima del lugar que va a ocupar el mensaje
+   siguiente, así no empuja nada. */
+.chat-demo__mensajes { position: relative; }
+
+.chat-escribiendo {
+  position: absolute;
+  left: var(--sp-5, 1.25rem);
+  display: flex;
+  gap: 4px;
+  padding: 0.75rem 0.9rem;
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+}
+
+.chat-escribiendo.is-visible { opacity: 1; }
+
+.chat-escribiendo span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-text-muted);
+  animation: lp-punto 1s ease-in-out infinite;
+}
+
+.chat-escribiendo span:nth-child(2) { animation-delay: 150ms; }
+.chat-escribiendo span:nth-child(3) { animation-delay: 300ms; }
+
+@keyframes lp-punto {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40%           { opacity: 1;   transform: translateY(-3px); }
+}
+
+/* ============ Demo de pedido de cotización (industria) ============
+   Misma caja que el chat, pero muestra un pedido que llega ordenado y lo
+   que pasa solo después. */
+.lp-pedido__datos {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.65rem var(--sp-4);
+  margin: 0;
+  padding: var(--sp-5, 1.25rem);
+  background: var(--c-bg);
+}
+
+.lp-pedido__datos dt {
+  padding-top: 0.2rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.lp-pedido__datos dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--c-text);
+}
+
+.lp-pedido__pasos {
+  display: grid;
+  gap: 0.65rem;
+  padding: var(--sp-5, 1.25rem);
+  border-top: 1px solid var(--c-border);
+  list-style: none;
+}
+
+.lp-pedido__paso {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--c-text);
+}
+
+.lp-pedido__paso svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin-top: 1px;
+  fill: none;
+  stroke: var(--c-accent-ink);
+  stroke-width: 2.5;
+}
+
+/* ============ Dolores: "¿Te suena?" ============ */
+.lp-dolores {
+  display: grid;
+  gap: var(--sp-5, 1.25rem);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 820px) {
+  .lp-dolores { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.lp-dolor {
+  background: var(--c-superficie);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8) var(--sp-6);
+}
+
+.lp-dolor__icono {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-content: center;
+  margin-bottom: var(--sp-5, 1.25rem);
+  border-radius: var(--radius);
+  background: var(--c-accent-soft);
+}
+
+.lp-dolor__icono svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--c-accent-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lp-dolor h3 {
+  font-size: 1.125rem;
+  margin-bottom: var(--sp-2);
+}
+
+.lp-dolor p {
+  margin: 0;
+  color: var(--c-text-muted);
+  font-size: 0.9375rem;
+}
+
+/* La frase que une el problema con la solución de la sección siguiente */
+.lp-puente {
+  max-width: 44ch;
+  margin: var(--sp-12) auto 0;
+  text-align: center;
+  font-size: clamp(1.15rem, 1.4vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--c-text);
+  text-wrap: balance;
+}
+
+/* ============ Solución: tres tarjetas de servicio ============
+   Usa .servicio de la home sin el pin: acá son tres y conviene verlas
+   juntas para entender que se combinan. */
+.lp-solucion {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 1000px) {
+  .lp-solucion { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.lp-solucion .servicio { padding: var(--sp-8) var(--sp-6); }
+.lp-solucion .servicio__intro { font-size: 0.9375rem; }
+.lp-solucion .check-list { gap: var(--sp-3); font-size: 0.9375rem; margin-bottom: 0; }
+
+/* Entre 700 y 999px las tarjetas van de a una y quedan muy anchas: la
+   lista en dos columnas aprovecha ese ancho en vez de dejar media tarjeta
+   vacía. */
+@media (min-width: 700px) and (max-width: 999px) {
+  .lp-solucion .check-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+/* ============ Banda de llamado intermedio ============
+   A mitad de página, justo después de explicar la solución, que es cuando
+   la persona ya entendió qué le ofrecemos. Esperar al formulario del final
+   pierde a los que se convencen antes. */
+.lp-banda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  margin-top: var(--sp-12);
+  padding: var(--sp-8);
+  border: 1px solid #1F4A63;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, rgba(0, 184, 212, 0.14), rgba(16, 43, 65, 0.35) 60%);
+}
+
+.lp-banda__titulo {
+  margin-bottom: var(--sp-2);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #FFFFFF;
+}
+
+.lp-banda__texto {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--c-text-muted);
+}
+
+@media (max-width: 620px) {
+  .lp-banda { padding: var(--sp-6); }
+  .lp-banda .btn { width: 100%; }
+}
+
+/* ============ Prueba: proyectos del rubro y testimonios ============ */
+
+/* En pages.css la tarjeta tiene tope de 460px, pensado para la grilla del
+   portfolio. Acá van de a dos y tienen que llenar su columna. */
+.lp .portfolio-card { max-width: none; }
+
+@media (min-width: 700px) {
+  .lp-proyectos.portfolio-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.lp-subtitulo {
+  margin: var(--sp-12) auto var(--sp-6);
+  text-align: center;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--c-text-muted);
+}
+
+/* Un solo proyecto del rubro: tarjeta a la izquierda, citas a la derecha.
+   En una grilla de dos con una sola tarjeta quedaba media fila vacía. */
+.lp-prueba-doble {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Sin .portfolio-preview-grid a propósito: esa clase trae tres columnas en
+   escritorio y carrusel en celular, y con una sola tarjeta las dos cosas
+   la dejaban angosta o con un hueco al costado. */
+.lp-proyectos-uno { display: grid; }
+
+@media (min-width: 900px) {
+  .lp-prueba-doble {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: stretch;
+  }
+  .lp-prueba-doble .testimonios-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.lp-pildoras-centro { justify-content: center; }
+
+/* ============ Proceso sobre banda alternada ============
+   El anillo que corta la línea detrás de cada número está pintado con el
+   color de fondo base. Sobre la banda alternada se veía como un aro. */
+.section-alt .numerada__numero { box-shadow: 0 0 0 6px var(--c-bg-alt); }
+
+/* ============ Contacto: qué pasa después de escribir ============ */
+.lp-despues__titulo {
+  margin-top: var(--sp-8);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.lp-despues {
+  display: grid;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+  counter-reset: paso;
+}
+
+.lp-despues li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  color: var(--c-text);
+  font-size: 0.9375rem;
+  counter-increment: paso;
+}
+
+.lp-despues li::before {
+  content: counter(paso);
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  background: var(--c-accent-soft);
+  color: var(--c-accent-ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+/* ============ Pie de tres columnas ============ */
+@media (min-width: 1000px) {
+  .lp .site-footer__grid { grid-template-columns: repeat(3, auto); }
+}
+
+.site-footer__list a[aria-current="page"] {
+  opacity: 1;
+  color: var(--c-accent);
+}
+
+/* ============ Barra de WhatsApp en celular ============
+   Solo abajo de 640px, que es donde la cabecera esconde su botón. Así hay
+   exactamente un botón de contacto fijo en cada ancho, nunca dos.
+
+   Aparece cuando el botón del hero sale de pantalla y se va cuando entra el
+   formulario o el pie: ahí ya hay botones a la vista y taparía el final.
+   Sin JavaScript no aparece nunca; el resto de la página funciona igual. */
+.lp-barra { display: none; }
+
+@media (max-width: 639px) {
+  .lp-barra {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 850;
+    padding: var(--sp-3) var(--sp-4) calc(var(--sp-3) + env(safe-area-inset-bottom, 0px));
+    background: rgba(4, 18, 31, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--c-border);
+    transform: translateY(110%);
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .lp-barra.is-visible { transform: translateY(0); }
+}

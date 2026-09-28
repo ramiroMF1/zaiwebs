@@ -1,0 +1,594 @@
+/* ============================================================
+   ZAIWEBS — Estilos específicos por página
+   ============================================================ */
+
+/* ============ Hero (Home) ============ */
+
+.hero {
+  padding-block: var(--sp-16) var(--section-y);
+}
+
+.hero__inner {
+  display: grid;
+  gap: var(--sp-12);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .hero__inner {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+.hero__title { margin-bottom: var(--sp-6); }
+
+.hero__lede {
+  font-size: 1.125rem;
+  color: var(--c-text-muted);
+  margin-bottom: var(--sp-8);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+.hero__visual {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .hero__visual {
+    display: block;
+  }
+}
+
+/* ============ Grid de servicios (Home) ============ */
+
+.services-grid {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1000px) {
+  .services-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ============ Por qué elegirnos (Home) ============ */
+
+.why-grid {
+  display: grid;
+  gap: var(--sp-8);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.why-item {
+  display: flex;
+  gap: var(--sp-4);
+}
+
+.why-item__icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--c-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.why-item__icon svg {
+  width: 22px; height: 22px;
+  stroke: var(--c-accent-hover);
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.why-item h3 { margin-bottom: var(--sp-2); font-size: 1.125rem; }
+.why-item p { color: var(--c-text-muted); }
+
+/* ============ Portfolio preview (Home) ============ */
+
+.portfolio-preview-grid {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .portfolio-preview-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ============ CTA final ============ */
+
+.cta-final {
+  text-align: center;
+}
+
+.cta-final__inner {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.cta-final h2 { margin-bottom: var(--sp-4); }
+
+.cta-final__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+
+.cta-final__email {
+  margin-top: var(--sp-6);
+  color: var(--c-text-invert);
+  opacity: 0.75;
+}
+
+.cta-final__email a { color: var(--c-accent); font-weight: 600; }
+
+/* ============ Servicios — bloques alternados ============ */
+
+.service-block {
+  display: grid;
+  gap: var(--sp-8);
+  align-items: center;
+}
+
+.service-block + .service-block {
+  margin-top: var(--sp-24);
+}
+
+@media (min-width: 900px) {
+  .service-block {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-16);
+  }
+
+  .service-block--reverse .service-block__visual {
+    order: 2;
+  }
+}
+
+.service-block__visual {
+  background: var(--c-bg-alt);
+  border-radius: var(--radius-lg);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.service-block__visual svg {
+  width: 55%;
+  height: 55%;
+  stroke: var(--c-accent-ink);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.service-block__intro {
+  color: var(--c-text-muted);
+  margin-block: var(--sp-4) var(--sp-6);
+}
+
+.service-block__meta {
+  margin-block: var(--sp-6);
+  font-size: var(--fs-small);
+}
+
+.service-block__meta strong {
+  color: var(--c-primary);
+}
+
+.service-block h2 { margin-bottom: var(--sp-2); }
+
+/* ============ Portfolio ============ */
+
+.portfolio-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-12);
+}
+
+.filter-chip {
+  padding: var(--sp-2) var(--sp-6);
+  border: 1.5px solid var(--c-border);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.filter-chip:hover {
+  border-color: var(--c-accent);
+  color: var(--c-primary);
+}
+
+.filter-chip[aria-pressed="true"] {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+}
+
+.portfolio-grid {
+  display: grid;
+  gap: var(--sp-8);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.portfolio-card {
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--c-bg);
+  max-width: 460px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Solo con mouse: en un celular el :hover queda pegado después del toque y
+   la tarjeta se quedaba levantada hasta tocar otra cosa. */
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.portfolio-card__img {
+  /* 1200x624, que es la proporción real de una captura de pantalla de
+     escritorio. Antes era 16/9 y obligaba a recortarles un 8% de ancho:
+     como los hero están centrados, el recorte partía los titulares al medio.
+     Es más barato adaptar la tarjeta que mutilar ocho capturas. */
+  aspect-ratio: 1200 / 624;
+  width: 100%;
+  /* height:auto no es decorativo: sin él, el atributo height="624" del <img>
+     fija la altura y el aspect-ratio no llega a aplicarse nunca. El bug ya
+     estaba antes con height="225", pero como 225 quedaba cerca de lo que
+     daba 16/9 no se notaba. Con 624 la tarjeta se estiraba al triple. */
+  height: auto;
+  object-fit: cover;
+  background: var(--c-bg-alt);
+  display: block;
+}
+
+.portfolio-card__body {
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  flex: 1;
+}
+
+/* ---- Nombre del cliente DEBAJO de la captura ----
+   Hasta el 27/09 el rótulo iba encima de la imagen, con un velo del 30 al
+   95 % para que se leyera. Resolvía el texto y rompía lo importante: la
+   captura es la prueba de que sabemos diseñar, y quedaba apagada justo donde
+   el cliente la mira. Ahora la imagen va a plena luz y el nombre abajo, sobre
+   la superficie de la tarjeta, donde se lee sin velos ni sombras.
+
+   El HTML no cambió (el rótulo sigue adentro de __visual, en las cinco
+   páginas que usan la tarjeta): el cambio es solo de CSS. */
+.portfolio-card__visual {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Filete bajo la captura: las webs con fondo blanco o muy oscuro se
+   fundían con la tarjeta y no se veía dónde terminaba la imagen. */
+.portfolio-card__visual .portfolio-card__img {
+  border-bottom: 1px solid var(--c-border);
+}
+
+.portfolio-card__rotulo {
+  padding: var(--sp-5, 1.25rem) var(--sp-6) 0;
+}
+
+.portfolio-card__rotulo h3 {
+  color: var(--c-text);
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.3rem;
+  text-wrap: balance;
+}
+
+/* El rubro va como texto en versalitas y no como píldora: la tarjeta ya
+   tiene píldoras abajo (las etiquetas) y dos tipos se confundirían. */
+.portfolio-card__rubro {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-accent-ink);
+}
+
+/* El rótulo ya dejó aire arriba: el cuerpo arranca más cerca para que
+   nombre y descripción se lean como un bloque. */
+.portfolio-card__visual + .portfolio-card__body { padding-top: var(--sp-3); }
+
+.portfolio-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+.portfolio-card__tag {
+  font-size: 0.8125rem;
+  color: var(--c-text-muted);
+  background: var(--c-bg-alt);
+  padding: 0.2rem var(--sp-3);
+  border-radius: 999px;
+}
+
+.portfolio-card__link {
+  margin-top: var(--sp-4);
+  font-weight: 600;
+  color: var(--c-accent-hover);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.portfolio-card__link svg {
+  width: 16px; height: 16px;
+}
+
+.portfolio-card[hidden] { display: none; }
+
+/* ============ Nosotros ============ */
+
+.values-grid {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1000px) {
+  .values-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.team-grid {
+  display: grid;
+  gap: var(--sp-8);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  max-width: 700px;
+}
+
+.team-card {
+  text-align: center;
+}
+
+.team-card img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-inline: auto;
+  margin-bottom: var(--sp-4);
+}
+
+.team-card h3 { font-size: 1.0625rem; margin-bottom: var(--sp-1); }
+.team-card p { color: var(--c-text-muted); font-size: var(--fs-small); }
+
+/* ============ Contacto ============ */
+
+.contact-grid {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .contact-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1000px) {
+  .contact-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.contact-card--whatsapp {
+  background: var(--c-primary);
+  color: var(--c-text-invert);
+  border-color: var(--c-primary);
+}
+
+.contact-card--whatsapp h3,
+.contact-card--whatsapp p { color: var(--c-text-invert); }
+
+.contact-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--c-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-card--whatsapp .contact-card__icon {
+  background: rgba(255,255,255,0.12);
+}
+
+.contact-card__icon svg {
+  width: 24px; height: 24px;
+}
+
+.contact-card__value {
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.contact-card__social {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+
+.contact-card__social a {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--c-border);
+  border-radius: 50%;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.contact-card__social a:hover {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+}
+
+.contact-card__social svg {
+  width: 20px; height: 20px;
+  fill: var(--c-primary);
+  transition: fill var(--transition);
+}
+
+.contact-card__social a:hover svg { fill: #fff; }
+
+.next-steps {
+  display: grid;
+  gap: var(--sp-8);
+  grid-template-columns: 1fr;
+  counter-reset: step;
+}
+
+@media (min-width: 700px) {
+  .next-steps { grid-template-columns: repeat(3, 1fr); }
+}
+
+.next-steps li {
+  position: relative;
+  padding-left: 3.5rem;
+}
+
+.next-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0; top: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--c-accent-soft);
+  color: var(--c-primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-steps p { color: var(--c-text-muted); }
+
+.faq-list {
+  max-width: var(--container-narrow);
+}
+
+/* ============ 404 ============ */
+
+.error-page {
+  text-align: center;
+  padding-block: var(--sp-24);
+}
+
+.error-page__code {
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 700;
+  color: var(--c-accent-ink);
+  line-height: 1;
+}
+
+.error-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+
+/* ============ Gracias ============ */
+
+.thanks-page {
+  text-align: center;
+  padding-block: var(--sp-24);
+}
+
+.thanks-page__icon {
+  width: 72px;
+  height: 72px;
+  margin-inline: auto var(--sp-6);
+  color: var(--c-success);
+}
+
+/* ============================================================
+   Páginas legales (privacidad, términos)
+   ============================================================
+   Son textos largos que se leen de corrido, no se escanean. Lo único
+   que necesitan es una columna angosta, aire entre bloques y que los
+   subtítulos se distingan sin gritar. */
+
+.legal-fecha {
+  margin-top: var(--sp-3);
+  font-size: 0.875rem;
+  color: var(--c-text-muted);
+}
+
+.legal-titulo {
+  font-size: 1.1875rem;
+  margin-top: var(--sp-10);
+  margin-bottom: var(--sp-3);
+  /* El filete de arriba separa las secciones sin necesidad de más espacio:
+     en un texto largo el aire solo termina pareciendo un error de maqueta. */
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--c-border);
+}
+
+.container-narrow .lede + .legal-titulo { margin-top: var(--sp-8); }
+
+.legal-lista {
+  margin: var(--sp-4) 0 0;
+  padding-left: var(--sp-5);
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.legal-lista li { padding-left: var(--sp-2); }
+.legal-lista li::marker { color: var(--c-accent); }
+
+.container-narrow p + p { margin-top: var(--sp-4); }

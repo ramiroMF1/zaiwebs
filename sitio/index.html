@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Zaiwebs | Diseño web y automatización con IA</title>
+<meta name="description" content="Diseñamos webs y tiendas a medida y automatizamos la atención de tu negocio con IA: asistentes para WhatsApp, turnos y seguimiento de consultas.">
+<link rel="canonical" href="https://zaiwebs.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zaiwebs | Diseño web y automatización con IA">
+<meta property="og:description" content="Diseñamos webs y tiendas a medida y automatizamos la atención de tu negocio con IA: asistentes para WhatsApp, turnos y seguimiento de consultas.">
+<meta property="og:image" content="https://zaiwebs.com/assets/img/og-image-ia.jpg">
+<!-- Las medidas ayudan a que WhatsApp y LinkedIn dibujen la tarjeta grande
+     ya en la primera vez, sin esperar a descargar la imagen para medirla. -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Zaiwebs — diseño web y automatización con IA. Tu web vende, tu WhatsApp responde.">
+<meta property="og:url" content="https://zaiwebs.com/">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="Zaiwebs">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Iconos de pestaña. Tres cosas a la vez, y cada una está por algo:
+
+     1. El .ico en la RAÍZ. Muchos navegadores piden /favicon.ico por su
+        cuenta, sin leer estas etiquetas, en situaciones donde no hay una
+        página cargada: la barra de marcadores, la pantalla de pestaña nueva,
+        el historial. Si no está, ahí sale el globo gris genérico.
+
+     2. Direcciones que empiezan con barra. Antes decía "assets/img/…" sin
+        barra, o sea relativo a la página. Funcionaba, pero ahora que las
+        direcciones son cortas (/portfolio) cualquier cambio en la
+        profundidad de la ruta lo rompe en silencio.
+
+     3. El ?v= al final. Los iconos se guardan en una caché aparte, la más
+        terca de todas, y el .htaccess además pide que se guarden un año. Sin
+        cambiar la dirección, un navegador que alguna vez no encontró el
+        icono se queda con el globo durante meses. Al subir un icono nuevo,
+        subir también este número. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png?v=73">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon.png?v=73">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=73">
+
+<!-- Descomentar al publicar la versión pt-BR -->
+<!-- <link rel="alternate" hreflang="es" href="https://zaiwebs.com/"> -->
+<!-- <link rel="alternate" hreflang="pt-BR" href="https://zaiwebs.com/pt/index.html"> -->
+<!-- <link rel="alternate" hreflang="x-default" href="https://zaiwebs.com/"> -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/variables.css?v=80">
+<link rel="stylesheet" href="assets/css/base.css?v=80">
+<link rel="stylesheet" href="assets/css/components.css?v=81">
+<link rel="stylesheet" href="assets/css/pages.css?v=81">
+<!-- Solo en la home: redefine los tokens a oscuro. Ver comentario del archivo. -->
+<link rel="stylesheet" href="assets/css/home.css?v=81">
+
+<!-- CSS crítico del hero, inline para evitar parpadeo -->
+<style>
+  .hero__title{font-weight:700;letter-spacing:-.035em;line-height:.99;color:#fff;margin:0}
+  .hero{padding-block:4rem clamp(4rem,8vw,7rem)}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Zaiwebs",
+  "description": "Estudio de diseño web, desarrollo a medida y automatización con IA, con base en Buenos Aires y trabajo 100% remoto",
+  "url": "https://zaiwebs.com",
+  "logo": "https://zaiwebs.com/assets/img/logo-zaiwebs-azul.png",
+  "email": "contacto@zaiwebs.com",
+  "telephone": "+542923677208",
+  "foundingDate": "2023",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Buenos Aires",
+    "addressCountry": "AR"
+  },
+  "areaServed": "AR",
+  "availableLanguage": ["es"],
+  "serviceType": ["Diseño web", "Desarrollo web", "Tiendas online", "Asistentes con IA", "Automatización de procesos", "SEO", "Identidad visual"],
+  "sameAs": [
+    "https://www.instagram.com/zaiwebs/",
+    "https://www.linkedin.com/company/zaiwebs/"
+  ]
+}
+</script>
+
+<!-- Analítica: Umami. Sin cookies y sin datos personales, así que no hace
+     falta cartel de consentimiento. Lo que de verdad importa medir acá no
+     son las visitas sino los clics a WhatsApp: el formulario no envía nada
+     a ningún servidor, abre el chat. Sin marcar esos clics no hay forma de
+     saber cuántas consultas generó el sitio. Cada punto de contacto lleva
+     su data-umami-event con un nombre propio. -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="08f5e024-0cc7-4397-805f-6e24a1f03018"></script>
+</head>
+<body class="tema-oscuro">
+
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__logo" aria-label="Zaiwebs — Inicio">
+      <img src="assets/img/logo-zaiwebs.svg" alt="Zaiwebs" width="180" height="34">
+    </a>
+
+    <nav class="site-nav" aria-label="Navegación principal">
+      <a href="#inicio" class="site-nav__link">Inicio</a>
+      <a href="#proyectos" class="site-nav__link">Proyectos</a>
+      <a href="#servicios" class="site-nav__link">Servicios</a>
+      <a href="#ia" class="site-nav__link">IA</a>
+      <a href="#estudio" class="site-nav__link">Estudio</a>
+      <a href="#contacto" class="site-nav__link">Contacto</a>
+    </nav>
+
+    <div class="site-header__actions">
+      <div class="lang-switch" hidden>
+        <button type="button" class="lang-switch__btn" aria-expanded="false" aria-haspopup="true" aria-label="Cambiar idioma">
+          ES
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="lang-switch__menu" role="menu">
+          <a href="/" role="menuitem">ES — Español</a>
+          <!-- Al lanzar pt-BR: <a href="pt/index.html" role="menuitem">PT — Português</a> -->
+        </div>
+      </div>
+
+      <a data-umami-event="wa-cabecera" class="btn btn-primary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20un%20proyecto%20web." target="_blank" rel="noopener">Hablemos</a>
+
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+        <span class="menu-toggle__icon"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu__top">
+    <img src="assets/img/logo-zaiwebs-quieto.svg" alt="Zaiwebs" width="148" height="28">
+    <button type="button" class="mobile-menu__close" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-menu__nav" aria-label="Navegación móvil">
+    <a href="#inicio">Inicio</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#ia">IA</a>
+    <a href="#estudio">Estudio</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <div class="mobile-menu__lang" hidden>
+    <a href="/">ES</a>
+    <!-- Al lanzar pt-BR: <a href="pt/index.html">PT</a> -->
+  </div>
+  <div class="mobile-menu__cta">
+    <a data-umami-event="wa-menu-movil" class="btn btn-primary btn-block" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20un%20proyecto%20web." target="_blank" rel="noopener">Hablemos</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ========== Hero: una sola promesa ==========
+       Hasta el 27/09 había cuatro solapas (Web + IA, Diseño web, SEO,
+       Tiendas). Se sacaron: pedían elegir antes de que llegara la promesa,
+       repetían Servicios y la página saltaba al cambiar de una a otra. Queda
+       la que la mayoría veía igual. Las otras tres frases están en
+       respaldo-publicado-20260927-2054-home-critica.
+       Un único <h1> en el documento. -->
+  <section class="hero" id="inicio">
+    <div class="hero__fondo" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__eyebrow">Diseño web · Automatización con IA</p>
+      <h1 class="hero__title">
+        <span class="linea"><span>Tu web vende.</span></span>
+        <span class="linea"><span>Tu WhatsApp</span></span>
+        <span class="linea"><span><em class="acento">responde</em>.</span></span>
+      </h1>
+      <p class="hero__lede">Diseñamos tu sitio y automatizamos la atención con IA: respuestas al instante, turnos y seguimiento de cada consulta. Y hablás siempre con quien lo construye.</p>
+      <div class="hero__actions">
+        <a data-umami-event="wa-hero-ia" class="btn btn-primary btn-lg" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20una%20web%20y%20un%20asistente%20con%20IA%20para%20mi%20negocio." target="_blank" rel="noopener">Solicitar presupuesto</a>
+        <a class="btn btn-secondary btn-lg" href="#ia">Ver cómo funciona</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ CLIENTES ══════════════
+       Cinta que desfila sola, sin título: los logos se explican solos y un
+       encabezado competiría con ellos.
+
+       ACÁ VA UNA SOLA TANDA DE LOGOS. Las copias que hacen falta para el
+       loop las clona main.js al cargar la página (buscá "cinta de clientes").
+       Está hecho así a propósito: si las copias estuvieran escritas en el
+       HTML, agregar un logo obligaría a agregarlo en todas y con que una
+       quede despareja el loop pega un salto visible en cada vuelta.
+
+       Para sumar o sacar un logo: tocá esta lista y nada más.
+       Sin JavaScript la cinta no se mueve y los logos quedan en una grilla
+       centrada, que es una degradación aceptable.
+
+       La clase de cada <li> NO es decorativa: define el alto del logo según
+       su proporción. Todos al mismo alto no funciona — con siete logos de
+       formas distintas, los cuadrados quedan como pulgas al lado de los
+       apaisados. Al elegir la clase, mirá el ancho ÷ alto del archivo:
+         logo--ancho  = 2.2 o más   (La Alianza, Ekuwün)
+         logo--medio  = entre 1.3 y 2.2
+         logo--alto   = menos de 1.3 (cuadrados o verticales)
+         logo--lockup = apaisado pero con texto chico adentro (CELP)
+       Ver assets/img/clientes/LEEME.txt -->
+  <section class="section section-alt clientes" aria-label="Clientes de Zaiwebs">
+    <div class="clientes-viewport" data-reveal>
+      <div class="clientes-cinta">
+        <ul class="clientes-tanda">
+          <li class="logo--medio"><img src="assets/img/clientes/one-goodly.png" alt="One Goodly" width="122" height="79"></li>
+          <li class="logo--lockup"><img src="assets/img/clientes/celp.png" alt="Cooperativa Eléctrica Limitada de Pigüé" width="625" height="170"></li>
+          <li class="logo--alto"><img src="assets/img/clientes/sws.png" alt="SWS" width="80" height="84"></li>
+          <li class="logo--ancho"><img src="assets/img/clientes/la-alianza.png" alt="La Alianza" width="409" height="170"></li>
+          <li class="logo--alto"><img src="assets/img/clientes/ingeniriego.png" alt="IngeniRiego" width="82" height="82"></li>
+          <li class="logo--ancho"><img src="assets/img/clientes/ekuwun.png" alt="Proyecto Ekuwün" width="212" height="95"></li>
+          <li class="logo--alto"><img src="assets/img/clientes/solecomunica.png" alt="SoleComunica" width="87" height="79"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ PROYECTOS — tres destacados ══════════════
+       Va justo después de la tira de clientes desde el 27/09. Antes estaba
+       después de Servicios y la IA: el primer trabajo aparecía a ~4.600px en
+       escritorio y a ~7.000px en celular, y para un estudio de diseño el
+       trabajo es la prueba principal. Las capturas también dejaron de ir
+       tapadas por un velo (ver pages.css, "Nombre del cliente DEBAJO").
+
+       El portfolio completo vive en /portfolio. Con tres tarjetas
+       una grilla normal funciona mejor que el scroll anclado: el
+       recorrido horizontal sería tan corto que se sentiría un tropiezo. -->
+  <section class="section section-alt seccion-ancla" id="proyectos">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="volanta" data-reveal>Proyectos</p>
+        <h2 data-reveal>Negocios con los que trabajamos</h2>
+      </div>
+
+      <div class="portfolio-preview-grid">
+        <article class="portfolio-card" data-category="plataforma" data-reveal>
+          <div class="portfolio-card__visual">
+            <img class="portfolio-card__img" src="assets/img/portfolio/ghc.webp" alt="Sitio web del Grupo de Hacienda Cooperativo" width="1200" height="624" loading="lazy">
+            <div class="portfolio-card__rotulo">
+              <h3>Grupo de Hacienda Cooperativo</h3>
+              <p class="portfolio-card__rubro">Agro</p>
+            </div>
+          </div>
+          <div class="portfolio-card__body">
+            <p class="text-muted">Plataforma de remates de hacienda para un grupo de cooperativas del sudoeste bonaerense.</p>
+            <div class="portfolio-card__tags">
+              <span class="portfolio-card__tag">Plataforma web</span>
+              <span class="portfolio-card__tag">Remates online</span>
+              <span class="portfolio-card__tag">Autogestión de contenido</span>
+            </div>
+            <a class="portfolio-card__link" href="https://ghc.com.ar" target="_blank" rel="noopener">
+              Ver sitio
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="portfolio-card" data-category="institucional" data-reveal>
+          <div class="portfolio-card__visual">
+            <img class="portfolio-card__img" src="assets/img/portfolio/sws.webp" alt="Sitio web de SWS Southwest Works and Services" width="1200" height="624" loading="lazy">
+            <div class="portfolio-card__rotulo">
+              <h3>SWS — Southwest Works &amp; Services</h3>
+              <p class="portfolio-card__rubro">Industria</p>
+            </div>
+          </div>
+          <div class="portfolio-card__body">
+            <p class="text-muted">Sitio corporativo para una empresa de proyectos industriales en Oil &amp; Gas y minería.</p>
+            <div class="portfolio-card__tags">
+              <span class="portfolio-card__tag">Diseño web</span>
+              <span class="portfolio-card__tag">Corporativo</span>
+              <span class="portfolio-card__tag">Fichas de proyecto</span>
+            </div>
+            <a class="portfolio-card__link" href="https://sws.ar" target="_blank" rel="noopener">
+              Ver sitio
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="portfolio-card" data-category="plataforma" data-reveal>
+          <div class="portfolio-card__visual">
+            <img class="portfolio-card__img" src="assets/img/portfolio/mandarini.webp" alt="Sitio web de Mandarini Inmobiliaria" width="1200" height="624" loading="lazy">
+            <div class="portfolio-card__rotulo">
+              <h3>Mandarini Inmobiliaria</h3>
+              <p class="portfolio-card__rubro">Inmobiliaria</p>
+            </div>
+          </div>
+          <div class="portfolio-card__body">
+            <p class="text-muted">Listado de propiedades en venta y alquiler, con ficha individual por unidad.</p>
+            <div class="portfolio-card__tags">
+              <span class="portfolio-card__tag">Listado de propiedades</span>
+              <span class="portfolio-card__tag">Diseño web</span>
+              <span class="portfolio-card__tag">Formularios</span>
+            </div>
+            <a class="portfolio-card__link" href="https://mandarini.com.ar" target="_blank" rel="noopener">
+              Ver sitio
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="acciones-par" data-reveal>
+        <a data-umami-event="wa-proyectos" class="btn btn-primary btn-lg" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20vi%20el%20portfolio%20y%20quiero%20algo%20similar%20para%20mi%20negocio." target="_blank" rel="noopener">Quiero algo similar</a>
+        <a class="btn btn-secondary btn-lg" href="/portfolio">Portfolio completo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SERVICIOS ══════════════
+       La sección se clava en pantalla y las tarjetas se reemplazan en
+       el mismo lugar, en vez de pasar de largo scrolleando.
+
+       CÓMO SE ARMA, porque la estructura no se explica sola:
+       .pin-alto es una caja alta y vacía que solo existe para dar scroll.
+       .pin-clavado va adentro con position:sticky, así que se queda quieta
+       mientras el scroll consume la altura de .pin-alto. Esa altura la calcula
+       main.js (buscá "tarjetas que se reemplazan"): media pantalla por tarjeta.
+       Las tarjetas se apilan en la MISMA celda de grilla y solo se ve
+       la que tiene .is-activa.
+
+       Abajo de 900px el pin se apaga solo y las tarjetas vuelven a ser una
+       lista normal: retener el scroll en un celular se siente como que la
+       página se colgó. Lo mismo si el visitante pidió reducir movimiento, o
+       si el JavaScript no carga.
+
+       Desde el 27/09, dos agregados:
+       - El índice de la columna izquierda (.servicios-indice), que con el pin
+         muestra los cinco nombres, marca el que está a la vista y lleva
+         directo a cualquiera. Sin pin no se dibuja.
+       - En celular las tarjetas van plegadas: nombre y frase, y el botón
+         "Ver qué incluye" abre el resto (.servicio__detalle). Sin JavaScript
+         quedan completas. -->
+  <section class="section seccion-ancla" id="servicios">
+    <div class="pin-alto" data-pin-tarjetas>
+     <div class="pin-clavado">
+      <!-- El resplandor va acá adentro y no en la <section>: overflow:hidden
+           en un ancestro de un position:sticky anula el pegado. -->
+      <div class="fondo-glow" aria-hidden="true"></div>
+      <div class="container servicios-doble">
+
+      <div class="servicios-fijo">
+        <h2 data-reveal>Qué hacemos</h2>
+        <p class="lede" data-reveal>Webs, tiendas y automatizaciones con IA. Funcionan por separado o combinadas, según lo que necesite tu negocio.</p>
+        <ol class="servicios-indice" aria-label="Los cinco servicios" data-reveal>
+          <li><a href="#diseno-web">Diseño y desarrollo web</a></li>
+          <li><a href="#asistentes-ia">Asistentes con IA</a></li>
+          <li><a href="#automatizaciones">Automatizaciones</a></li>
+          <li><a href="#seo">SEO y performance</a></li>
+          <li><a href="#ecommerce">Tiendas online</a></li>
+        </ol>
+        <p class="servicios-fijo__nota" data-reveal>¿No sabés cuál te sirve? Contanos qué necesita tu negocio y lo vemos juntos.</p>
+        <a data-umami-event="wa-servicios" class="btn btn-primary" data-reveal href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20solicitar%20un%20presupuesto." target="_blank" rel="noopener">Solicitar presupuesto</a>
+      </div>
+
+      <div class="servicios-lista">
+        <article class="servicio" id="diseno-web">
+          <div class="servicio__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+          <h3 class="servicio__titulo">Diseño y desarrollo web</h3>
+          <p class="servicio__intro">Sitios a medida que representan tu marca y convierten visitas en consultas. Si tu marca todavía no tiene logo, colores o tipografías, los resolvemos dentro del mismo proyecto.</p>
+          <button type="button" class="servicio__abrir" aria-expanded="false" aria-controls="detalle-diseno-web" hidden>Ver qué incluye <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="servicio__detalle" id="detalle-diseno-web">
+            <ul class="check-list">
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Diseño UX/UI personalizado</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Identidad visual, si tu marca la necesita</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Velocidad y SEO técnico de base</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Capacitación para que puedas gestionarlo</span></li>
+            </ul>
+            <p class="servicio__meta"><strong>Para quién:</strong> empresas y profesionales que necesitan una presencia digital seria y diferenciada. Si buscás solo branding, sin sitio, no es lo que mejor hacemos.</p>
+            <a data-umami-event="wa-servicio-web" class="btn btn-secondary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20el%20servicio%20de%20Dise%C3%B1o%20y%20desarrollo%20web." target="_blank" rel="noopener">Consultar por este servicio</a>
+          </div>
+        </article>
+
+        <!-- Las dos tarjetas de IA van justo después de la web a propósito:
+             son lo nuevo y completan la promesa del titular. La identidad
+             visual dejó de tener tarjeta propia y quedó dentro de la de web,
+             que es como se vende: nunca fue un servicio aparte. -->
+        <article class="servicio" id="asistentes-ia">
+          <div class="servicio__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke-linecap="round" stroke-width="3"/></svg></div>
+          <h3 class="servicio__titulo">Asistentes con IA</h3>
+          <p class="servicio__intro">Responden al instante las consultas que llegan por WhatsApp, Instagram o tu web, con la información de tu negocio, y te pasan la conversación cuando hace falta una persona.</p>
+          <button type="button" class="servicio__abrir" aria-expanded="false" aria-controls="detalle-asistentes-ia" hidden>Ver qué incluye <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="servicio__detalle" id="detalle-asistentes-ia">
+            <ul class="check-list">
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Precios, horarios y disponibilidad, a cualquier hora</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Turnos, reservas y recordatorios</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Datos de cada interesado, ordenados para seguirlo</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Derivación a tu equipo con el resumen de la charla</span></li>
+            </ul>
+            <p class="servicio__meta"><strong>Para quién:</strong> negocios que reciben más consultas de las que llegan a responder, o que pierden las que entran fuera de horario.</p>
+            <a data-umami-event="wa-servicio-asistente" class="btn btn-secondary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20el%20servicio%20de%20Asistentes%20con%20IA." target="_blank" rel="noopener">Consultar por este servicio</a>
+          </div>
+        </article>
+
+        <article class="servicio" id="automatizaciones">
+          <div class="servicio__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.5 6h9M6.3 8.2l4.4 7.6M17.7 8.2l-4.4 7.6"/></svg></div>
+          <h3 class="servicio__titulo">Automatizaciones</h3>
+          <p class="servicio__intro">Conectamos las herramientas que ya usás para que las tareas que siempre son iguales dejen de hacerse a mano. Menos copiar y pegar, menos consultas que se pierden.</p>
+          <button type="button" class="servicio__abrir" aria-expanded="false" aria-controls="detalle-automatizaciones" hidden>Ver qué incluye <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="servicio__detalle" id="detalle-automatizaciones">
+            <ul class="check-list">
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Formulario web → planilla o CRM → aviso por WhatsApp</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Seguimiento automático de presupuestos enviados</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Reportes periódicos sin armarlos a mano</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Integración con email, planillas y sistemas de gestión</span></li>
+            </ul>
+            <p class="servicio__meta"><strong>Para quién:</strong> equipos que pierden horas cada semana en tareas administrativas repetidas.</p>
+            <a data-umami-event="wa-servicio-automatizacion" class="btn btn-secondary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20el%20servicio%20de%20Automatizaciones." target="_blank" rel="noopener">Consultar por este servicio</a>
+          </div>
+        </article>
+
+        <article class="servicio" id="seo">
+          <div class="servicio__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="7"/><path d="M21 21l-5.5-5.5M7 10h6M10 7v6"/></svg></div>
+          <h3 class="servicio__titulo">SEO y performance</h3>
+          <p class="servicio__intro">Un sitio que nadie encuentra no sirve. Auditamos, optimizamos la carga y trabajamos el posicionamiento sobre lo que ya tenés, pensando también en los buscadores con IA.</p>
+          <button type="button" class="servicio__abrir" aria-expanded="false" aria-controls="detalle-seo" hidden>Ver qué incluye <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="servicio__detalle" id="detalle-seo">
+            <ul class="check-list">
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Auditoría técnica completa</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Investigación de palabras clave</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Optimización on-page y Core Web Vitals</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Contenido preparado para buscadores con IA</span></li>
+            </ul>
+            <p class="servicio__meta"><strong>Para quién:</strong> proyectos con sitio ya publicado que no están recibiendo el tráfico que esperaban.</p>
+            <a data-umami-event="wa-servicio-seo" class="btn btn-secondary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20el%20servicio%20de%20SEO%20y%20performance." target="_blank" rel="noopener">Consultar por este servicio</a>
+          </div>
+        </article>
+
+        <article class="servicio" id="ecommerce">
+          <div class="servicio__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg></div>
+          <h3 class="servicio__titulo">Tiendas online</h3>
+          <p class="servicio__intro">Tiendas pensadas para vender, no solo para mostrar productos. Catálogo, carrito y checkout que funcionan en el celular.</p>
+          <button type="button" class="servicio__abrir" aria-expanded="false" aria-controls="detalle-ecommerce" hidden>Ver qué incluye <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="servicio__detalle" id="detalle-ecommerce">
+            <ul class="check-list">
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Catálogo y fichas de producto</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Pasarelas de pago locales e internacionales</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Gestión de stock y envíos</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Panel de administración</span></li>
+            </ul>
+            <p class="servicio__meta"><strong>Para quién:</strong> negocios que quieren vender online o migrar de una plataforma que se les quedó chica.</p>
+            <a data-umami-event="wa-servicio-tienda" class="btn btn-secondary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20el%20servicio%20de%20Tiendas%20online." target="_blank" rel="noopener">Consultar por este servicio</a>
+          </div>
+        </article>
+
+      </div><!-- /.servicios-lista -->
+
+      </div><!-- /.container.servicios-doble -->
+
+      <!-- Barra de avance. Sin esto el visitante no tiene forma de saber
+           cuántas tarjetas faltan ni si la página se trabó. Va fuera de la
+           grilla de dos columnas: adentro contaría como una tercera celda. -->
+      <div class="container">
+        <div class="pin-progreso" aria-hidden="true"><span data-pin-barra></span></div>
+      </div>
+
+     </div><!-- /.pin-clavado -->
+    </div><!-- /.pin-alto -->
+  </section>
+
+  <!-- ══════════════ AUTOMATIZACIÓN CON IA ══════════════
+       Sección propia además de las dos tarjetas de Servicios: es lo nuevo del
+       estudio, y un asistente se entiende mejor viéndolo responder que
+       leyendo una lista de lo que hace.
+
+       La conversación de la derecha es un EJEMPLO y lo dice debajo: no es de
+       un cliente real. Va como lista ordenada porque el orden de los mensajes
+       es parte del contenido. Cuando haya un caso real con permiso del
+       cliente, conviene reemplazarla por ese.
+
+       Fondo en el tono más profundo: queda entre Servicios (fondo base) y
+       Proyectos (banda alternada), y con cualquiera de esos dos tonos se
+       fundía con una de las vecinas. -->
+  <section class="section seccion-ancla seccion-ia" id="ia">
+    <div class="container ia-doble">
+
+      <div class="ia-doble__texto">
+        <p class="volanta" data-reveal>Automatización con IA</p>
+        <h2 data-reveal>Que ninguna consulta quede <em class="acento">sin respuesta</em></h2>
+        <p class="lede" data-reveal>Muchas consultas llegan de noche, un domingo o mientras estás atendiendo. Un asistente con IA las responde en el momento con la información de tu negocio y te deja lo importante listo para seguir.</p>
+
+        <ul class="ia-puntos" data-reveal>
+          <li>
+            <h3>Responde con tu información</h3>
+            <p>Lo preparamos con tus precios, horarios, servicios y preguntas frecuentes. Cuando no tiene la respuesta, deriva la consulta en lugar de improvisar.</p>
+          </li>
+          <li>
+            <h3>Te pasa la conversación</h3>
+            <p>Si hace falta una persona, te avisa con el resumen de la charla para que sigas vos, sin volver a preguntar lo mismo.</p>
+          </li>
+          <li>
+            <h3>Sin trucos</h3>
+            <p>Se presenta como asistente virtual y funciona sobre la API oficial de WhatsApp, para que tu número no corra riesgos.</p>
+          </li>
+        </ul>
+
+        <!-- Por situación y no por rubro: lo que hace rendir a un asistente o a
+             una automatización es el tipo de tarea (preguntas repetidas,
+             turnos, seguimiento, carga manual), no la industria. Una lista de
+             rubros deja afuera a quien no se ve en ella; estas situaciones las
+             reconoce cualquier negocio. Los rubros quedan como ejemplo abajo.
+             Frases de 35 caracteres como máximo: más largas, la píldora se
+             parte en dos renglones en un celular de 375px. -->
+        <p class="ia-doble__rubros" data-reveal>Rinde más en negocios que…</p>
+        <ul class="pildoras ia-doble__pildoras" data-reveal>
+          <li class="pildora">Responden preguntas repetidas</li>
+          <li class="pildora">Dan turnos o reservas</li>
+          <li class="pildora">Reciben consultas fuera de horario</li>
+          <li class="pildora">Mandan presupuestos y los siguen</li>
+          <li class="pildora">Cargan datos a mano</li>
+        </ul>
+        <p class="ia-doble__ejemplos" data-reveal>Por ejemplo: consultorios y centros de estética, inmobiliarias, gastronomía, educación, tiendas online y servicios profesionales.</p>
+
+        <div class="ia-doble__acciones" data-reveal>
+          <a data-umami-event="wa-ia" class="btn btn-primary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20un%20asistente%20con%20IA%20para%20mi%20negocio." target="_blank" rel="noopener">Quiero un asistente</a>
+          <!-- Lo muestra zai.js solo si Zai está activo: con el chat apagado,
+               un botón que no hace nada es peor que ninguno. -->
+          <button type="button" class="btn btn-secondary" data-zai-abrir hidden>Probá a Zai</button>
+        </div>
+      </div>
+
+      <figure class="chat-demo" data-reveal>
+        <div class="chat-demo__cabeza">
+          <span class="chat-demo__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/></svg></span>
+          <span class="chat-demo__quien">
+            <span class="chat-demo__nombre">Asistente de una inmobiliaria</span>
+            <span class="chat-demo__estado">en línea</span>
+          </span>
+        </div>
+        <ol class="chat-demo__mensajes">
+          <li class="chat-msg chat-msg--cliente"><span class="visually-hidden">Cliente: </span>Hola! ¿El depto de 2 ambientes que publicaron sigue disponible?<time>22:47</time></li>
+          <li class="chat-msg chat-msg--asistente"><span class="visually-hidden">Asistente: </span>¡Hola! Sí, sigue disponible: 2 ambientes, 48 m², en alquiler. ¿Te mando las fotos y coordinamos una visita?<time>22:47</time></li>
+          <li class="chat-msg chat-msg--cliente"><span class="visually-hidden">Cliente: </span>Dale, el jueves a la tarde puedo<time>22:48</time></li>
+          <li class="chat-msg chat-msg--asistente"><span class="visually-hidden">Asistente: </span>Perfecto. Le aviso a Laura, del equipo, para que mañana te confirme el horario. ¿Me pasás tu nombre?<time>22:48</time></li>
+          <li class="chat-demo__derivacion">Conversación derivada a Laura · Ventas</li>
+        </ol>
+        <figcaption class="chat-demo__aviso">Ejemplo ilustrativo de cómo responde un asistente.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ ESTUDIO ══════════════
+       Dos bloques:
+         1. Presentación en dos columnas — texto a la izquierda, pruebas a la derecha
+         2. Cómo es el proceso — cuatro tarjetas numeradas
+
+       Había un tercer bloque, "Por qué Zaiwebs", con otras cuatro tarjetas
+       numeradas. Se sacó: dos grillas iguales seguidas se leían como una sola
+       lista de ocho, y las cuatro que decía ese bloque —transparencia,
+       calidad, compromiso— las dice cualquier agencia. Las dos capacidades
+       de la columna derecha cubren lo mismo con algo que sí se puede probar.
+
+       Sobre la columna derecha: en la referencia que inspiró este bloque ahí
+       van las fotos del equipo. El estudio son dos personas y por ahora
+       eligieron no aparecer con nombre ni foto, así que el lugar lo ocupan
+       los años de trabajo y dos capacidades que sí se pueden sostener.
+
+       Jerarquía: un <h2> ("El estudio"), <h3> para cada bloque, <h4> para
+       cada tarjeta. -->
+  <section class="section seccion-ancla" id="estudio">
+
+    <div class="container estudio-doble">
+
+      <div class="estudio-doble__texto">
+        <p class="volanta" data-reveal>El estudio</p>
+        <h2 data-reveal>Quiénes <em class="acento">construyen</em> tu proyecto</h2>
+        <p class="estudio-doble__lede" data-reveal>Con base en Buenos Aires y trabajo 100% remoto, <strong>Zaiwebs</strong> es un estudio de diseño, desarrollo web y automatización. Construimos sitios a medida y asistentes con IA para empresas y profesionales que necesitan algo más que estar presentes en internet.</p>
+
+        <ul class="pildoras" data-reveal>
+          <li class="pildora">HTML, CSS y JS a medida</li>
+          <li class="pildora">WordPress</li>
+          <li class="pildora">WooCommerce</li>
+          <li class="pildora">Tiendanube</li>
+          <li class="pildora">Asistentes con IA</li>
+          <li class="pildora">Automatizaciones</li>
+          <li class="pildora">SEO técnico</li>
+          <li class="pildora">Rendimiento web</li>
+        </ul>
+
+        <div class="estudio-doble__acciones" data-reveal>
+          <a class="btn btn-secondary" href="#testimonios">Ver testimonios</a>
+          <a data-umami-event="wa-estudio" class="btn btn-primary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20un%20proyecto%20web." target="_blank" rel="noopener">Hablemos</a>
+        </div>
+      </div>
+
+      <div class="estudio-doble__pruebas">
+        <div class="dato-grande" data-reveal>
+          <p class="dato-grande__cifra">+3</p>
+          <p class="dato-grande__texto">Años construyendo sitios a medida para empresas y profesionales.</p>
+        </div>
+
+        <div class="capacidad" data-reveal>
+          <h3 class="capacidad__titulo">Hablás con quien hace el trabajo</h3>
+          <p>Desde la primera consulta hasta el lanzamiento no hay intermediarios: no hay cuenta que rebote entre áreas ni ejecutivo que te repita lo que le dijo el programador. Y como somos dos, tampoco dependés de una sola agenda: siempre hay alguien del estudio para responderte.</p>
+        </div>
+
+        <div class="capacidad" data-reveal>
+          <h3 class="capacidad__titulo">Lo que entregamos queda en tus manos</h3>
+          <p>Cada proyecto se entrega con capacitación para que puedas cargar contenido, publicar y actualizar sin depender de nadie. Por eso los sitios que entregamos siguen funcionando años después.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container estudio-bloque">
+      <!-- El título va oculto a la vista pero presente para los lectores de
+           pantalla. Visible quedaba flotando: un renglón suelto entre los
+           botones de arriba y la línea de tiempo, sin nada que lo sujete.
+           Los cuatro pasos se explican solos —Descubrimiento, Diseño,
+           Desarrollo, Lanzamiento—, pero borrarlo del todo dejaría el bloque
+           sin nombre en el esquema del documento. -->
+      <h3 class="visually-hidden">Cómo es el proceso</h3>
+      <div class="numeradas">
+        <article class="numerada" data-reveal>
+          <div class="numerada__cabeza">
+            <span class="numerada__numero" aria-hidden="true">01</span>
+            <h4>Descubrimiento</h4>
+          </div>
+          <p>Primero entendemos tu negocio, a quién le vendés y qué querés lograr. Antes de empezar, recibís un resumen del alcance propuesto.</p>
+        </article>
+        <article class="numerada" data-reveal>
+          <div class="numerada__cabeza">
+            <span class="numerada__numero" aria-hidden="true">02</span>
+            <h4>Diseño</h4>
+          </div>
+          <p>Te mostramos las pantallas o, si es un asistente, cómo va a conversar. Lo aprobás vos antes de que escribamos una línea de código.</p>
+        </article>
+        <article class="numerada" data-reveal>
+          <div class="numerada__cabeza">
+            <span class="numerada__numero" aria-hidden="true">03</span>
+            <h4>Desarrollo</h4>
+          </div>
+          <p>Lo construimos para que cargue rápido, se use bien desde el celular y aparezca en Google. Los asistentes los probamos con preguntas reales, y nada se da por terminado sin una segunda revisión.</p>
+        </article>
+        <article class="numerada" data-reveal>
+          <div class="numerada__cabeza">
+            <span class="numerada__numero" aria-hidden="true">04</span>
+            <h4>Lanzamiento</h4>
+          </div>
+          <p>Publicamos, medimos y te acompañamos después de la entrega. Incluye capacitación para que puedas manejarlo vos.</p>
+        </article>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════ TESTIMONIOS ══════════════ -->
+  <section class="section section-alt" id="testimonios">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="volanta" data-reveal>Testimonios</p>
+        <h2 data-reveal>Lo que dicen los clientes</h2>
+      </div>
+      <div class="testimonios-grid">
+        <figure class="testimonio" data-reveal>
+          <blockquote class="testimonio__cita">Muy buen trabajo de Zaiwebs. Cumplieron en tiempo y forma, y el sitio quedó como lo necesitábamos. Un equipo serio y responsable.</blockquote>
+          <figcaption class="testimonio__pie">
+            <span class="testimonio__cliente">La Alianza</span>
+            <span class="testimonio__rubro">Cooperativa agropecuaria</span>
+          </figcaption>
+        </figure>
+        <figure class="testimonio" data-reveal>
+          <blockquote class="testimonio__cita">Trabajamos con Zaiwebs en nuestra tienda que quedó completísima. Se nota que saben cómo trabajar y ayudaron mucho en todo. Recomendados 100%.</blockquote>
+          <figcaption class="testimonio__pie">
+            <span class="testimonio__cliente">One Goodly</span>
+            <span class="testimonio__rubro">Tienda online</span>
+          </figcaption>
+        </figure>
+        <figure class="testimonio" data-reveal>
+          <blockquote class="testimonio__cita">Zaiwebs nos hizo una web excelente. Trabajaron súper bien, cumplieron con todo lo que prometieron y nos dejaron más que conformes. ¡Recomendados!</blockquote>
+          <figcaption class="testimonio__pie">
+            <span class="testimonio__cliente">IngeniRiego</span>
+            <span class="testimonio__rubro">Piscinas y sistemas de riego</span>
+          </figcaption>
+        </figure>
+        <figure class="testimonio" data-reveal>
+          <blockquote class="testimonio__cita">Empecé a trabajar con Zaiwebs sin saber que en realidad necesitaba una página para mi catálogo, me sirvió mucho para vender más ordenadamente.</blockquote>
+          <figcaption class="testimonio__pie">
+            <span class="testimonio__cliente">Book Club</span>
+            <span class="testimonio__rubro">Catálogo online</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ PREGUNTAS ══════════════
+       Acordeón de a uno por vez: el atributo name compartido hace que abrir
+       una cierre la anterior. Es HTML puro y no necesita JavaScript en los
+       navegadores que lo soportan; para los que no, main.js hace lo mismo a
+       mano (buscá "acordeón del FAQ").
+
+       El <details> abierto por defecto es el del precio, que es la pregunta
+       que todo el mundo abre primero. -->
+  <section class="section" id="preguntas">
+    <div class="container-narrow">
+      <div class="section-head section-head--center">
+        <p class="volanta" data-reveal>Preguntas</p>
+        <h2 data-reveal>Lo que suelen preguntar antes de empezar</h2>
+      </div>
+      <div class="faq-list" data-reveal>
+
+        <details class="faq-item" name="faq" open>
+          <summary>¿Cuánto cuesta un sitio web?</summary>
+          <p>El precio lo definen tres cosas: cuántas páginas tiene, si además vende online, y si hay que resolver también la identidad visual. Contanos cuál es tu caso y te pasamos un número en la primera conversación, sin compromiso.</p>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>¿Cuánto cuesta un asistente con IA?</summary>
+          <p>Tiene dos partes: la implementación, que se paga una vez, y un abono mensual que cubre el uso de la IA, el mantenimiento y los ajustes. Los mensajes de WhatsApp los cobra Meta aparte, sin recargo. El monto depende de cuántas consultas recibís y de con qué sistemas lo conectamos. También te pasamos un número en la primera conversación.</p>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>¿El asistente reemplaza a quien atiende?</summary>
+          <p>No. Se ocupa de las preguntas que se repiten todo el día (horarios, precios, disponibilidad) y le pasa la conversación a una persona cuando hace falta. Siempre se presenta como asistente virtual.</p>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>¿Cuánto demora?</summary>
+          <p>Una landing page entre 1 y 2 semanas; un sitio institucional entre 3 y 5; una tienda online entre 4 y 8. En un asistente con IA depende de con qué sistemas se conecte. Los plazos se confirman al aprobar la propuesta.</p>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>¿Puedo actualizar el sitio yo mismo?</summary>
+          <p>Sí, y es la idea. Cada proyecto se entrega con capacitación para que puedas cargar contenido, publicar y actualizar sin depender de nadie. Por eso los sitios entregados siguen funcionando años después.</p>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>¿Qué pasa después de la entrega?</summary>
+          <p>El sitio incluye cuatro semanas de soporte para ajustes y dudas desde la entrega. Después queda en tus manos. Si preferís que nos sigamos ocupando del mantenimiento, lo cotizamos aparte según lo que necesites: no es obligatorio ni viene atado a la entrega. Los asistentes con IA sí llevan abono mensual, porque tienen costos de uso y necesitan ajustes.</p>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>¿Trabajan con clientes de otras provincias?</summary>
+          <p>Sí. Trabajamos 100% remoto, así que la ubicación no es un problema: alcanza con WhatsApp o videollamada para coordinar.</p>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>¿Incluye el hosting y el dominio?</summary>
+          <p>Te asesoramos en la contratación y hacemos toda la configuración. El dominio queda siempre a tu nombre, nunca a nombre nuestro.</p>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>¿Qué necesito para empezar?</summary>
+          <p>Solo una idea de lo que querés lograr y para quién. Del resto nos ocupamos nosotros.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ CONTACTO ══════════════
+       Dos columnas: a la izquierda el argumento, a la derecha un formulario
+       que NO envía nada a ningún servidor.
+
+       POR QUÉ NO ENVÍA NADA: el sitio es HTML plano en un hosting sin
+       backend. Un formulario común necesitaría algo del lado del servidor
+       que reciba los datos, y no existe. Este arma un mensaje de WhatsApp
+       con lo que la persona escribió y abre el chat con el texto ya puesto.
+       Nadie manda nada sin verlo antes, y a Zaiwebs le llega por el mismo
+       canal de siempre.
+
+       El <form> igual lleva action y method a propósito: si el JavaScript
+       falla, el navegador hace un GET a wa.me con los campos como parámetros.
+       No arma la frase prolija, pero abre el chat igual. Ver main.js. -->
+  <section class="section section-dark cta-final seccion-ancla" id="contacto">
+    <div class="fondo-glow fondo-glow--cta" aria-hidden="true"></div>
+    <div class="container contacto-doble">
+
+      <div class="contacto-doble__texto" data-reveal>
+        <p class="volanta">Contacto</p>
+        <h2>Contanos qué necesita tu negocio</h2>
+        <p class="lede">Respondemos con una propuesta concreta en menos de 24 horas. Sin formularios que caen en un buzón que nadie mira.</p>
+        <p class="contacto-doble__nota">Si preferís escribir directamente, el botón de abajo abre el chat sin pasar por el formulario.</p>
+
+        <div class="contacto-doble__acciones">
+          <a data-umami-event="wa-contacto-directo" class="btn btn-secondary" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20un%20proyecto%20web." target="_blank" rel="noopener">Escribir por WhatsApp sin formulario</a>
+        </div>
+
+        <p class="cta-final__email">También podés escribirnos a <a data-umami-event="mail-contacto" href="mailto:contacto@zaiwebs.com">contacto@zaiwebs.com</a></p>
+      </div>
+
+      <form class="contacto-form" data-wa-form action="https://wa.me/5492923677208" method="get" target="_blank" rel="noopener" data-reveal>
+        <p class="contacto-form__titulo">Contanos en 30 segundos</p>
+
+        <div class="contacto-form__par">
+          <div class="campo">
+            <label for="wa-nombre">Tu nombre</label>
+            <input type="text" id="wa-nombre" name="nombre" autocomplete="name" placeholder="Ana" required>
+          </div>
+          <div class="campo">
+            <label for="wa-negocio">Tu negocio</label>
+            <input type="text" id="wa-negocio" name="negocio" autocomplete="organization" placeholder="Inmobiliaria del centro">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="wa-necesita">Qué necesitás</label>
+          <select id="wa-necesita" name="necesita">
+            <option>Un sitio nuevo desde cero</option>
+            <option>Rehacer el sitio que ya tengo</option>
+            <option>Una tienda online</option>
+            <option>Un asistente con IA para WhatsApp o mi web</option>
+            <option>Automatizar tareas de mi negocio</option>
+            <option>SEO y velocidad sobre un sitio existente</option>
+            <option>Identidad visual junto con la web</option>
+            <option>Todavía no lo tengo claro</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="wa-detalle">Algo más que deba saber <span class="campo__opcional">(opcional)</span></label>
+          <textarea id="wa-detalle" name="detalle" rows="3" placeholder="Tengo el dominio comprado y unas fotos, pero nada más."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Abrir WhatsApp con esto escrito</button>
+
+        <p class="contacto-form__aviso">Se abre WhatsApp con el mensaje ya redactado. Lo leés y lo mandás vos.</p>
+      </form>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <img src="assets/img/logo-zaiwebs-quieto.svg" alt="" width="159" height="30">
+        <p class="site-footer__tagline">Diseño web y automatización con IA. Sitios y asistentes rápidos, claros y fáciles de mantener.</p>
+        <div class="site-footer__social">
+          <a href="https://www.instagram.com/zaiwebs/" target="_blank" rel="noopener" aria-label="Instagram de Zaiwebs">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .3 2.4.5.6.2 1 .5 1.4 1 .4.4.7.8 1 1.4.2.5.4 1.2.5 2.4.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 2-.5 2.4-.2.6-.5 1-1 1.4-.4.4-.8.7-1.4 1-.5.2-1.2.4-2.4.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.3-2.4-.5-.6-.2-1-.5-1.4-1-.4-.4-.7-.8-1-1.4-.2-.5-.4-1.2-.5-2.4-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-2 .5-2.4.2-.6.5-1 1-1.4.4-.4.8-.7 1.4-1 .5-.2 1.2-.4 2.4-.5 1.3-.1 1.7-.1 4.9-.1zM12 0C8.7 0 8.3 0 7 .1c-1.3.1-2.2.3-3 .6-.8.3-1.5.7-2.2 1.4C1.1 2.8.7 3.5.4 4.3c-.3.8-.5 1.7-.6 3C-.3 8.6 0 9 0 12.3s0 3.7.1 5c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.2C21.2 1.1 20.5.7 19.7.4c-.8-.3-1.7-.5-3-.6C15.4 0 15 0 12 0z"/><path d="M12 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/><circle cx="18.4" cy="5.6" r="1.4"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/zaiwebs/" target="_blank" rel="noopener" aria-label="LinkedIn de Zaiwebs">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.2V9h3.5v1.6h.1c.5-.9 1.7-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4A2.1 2.1 0 1 1 5.3 3.2a2.1 2.1 0 0 1 0 4.2zM7.1 20.4H3.5V9h3.6v11.4z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="site-footer__heading">Servicios</h3>
+        <ul class="site-footer__list">
+          <li><a href="#servicios">Diseño y desarrollo web</a></li>
+          <li><a href="#ia">Asistentes con IA</a></li>
+          <li><a href="#servicios">Automatizaciones</a></li>
+          <li><a href="#servicios">SEO y performance</a></li>
+          <li><a href="#servicios">Tiendas online</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="site-footer__heading">Empresa</h3>
+        <ul class="site-footer__list">
+          <li><a href="#estudio">El estudio</a></li>
+          <li><a href="/portfolio">Portfolio completo</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="site-footer__heading">Contacto</h3>
+        <ul class="site-footer__list">
+          <li><a data-umami-event="wa-pie-telefono" href="https://wa.me/5492923677208" target="_blank" rel="noopener">+54 2923 67-7208</a></li>
+          <li><a data-umami-event="mail-pie" href="mailto:contacto@zaiwebs.com">contacto@zaiwebs.com</a></li>
+          <li><span>Buenos Aires, Argentina</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© 2023–2026 Zaiwebs. Todos los derechos reservados.</p>
+      <div class="site-footer__legal">
+        <a href="/privacidad">Política de Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a data-umami-event="wa-flotante" href="https://wa.me/5492923677208?text=Hola%20Zaiwebs%2C%20quiero%20consultar%20por%20un%20proyecto%20web." target="_blank" rel="noopener" class="whatsapp-float" aria-label="Escribinos por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.4 7.6 9.1 7c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2.1 3.2 5 4.4.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+  <span class="whatsapp-float__texto">Escribinos</span>
+</a>
+
+<script src="assets/js/main.js?v=82" defer></script>
+<!-- Chat con Zai. Si el asistente no está activo en el servidor, no dibuja nada. -->
+<script src="assets/js/zai.js?v=81" defer></script>
+</body>
+</html>
